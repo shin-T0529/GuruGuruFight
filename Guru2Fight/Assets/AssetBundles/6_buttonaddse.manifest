@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2874476686
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 86918d3b6f461f3a1642900a82e3ea3d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Sound/SE/6_ButtonAddSE.mp3
+Dependencies: []

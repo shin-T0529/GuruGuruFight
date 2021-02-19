@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 149893227
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: bc82673b01cf30bfe74480acbe7b59f7
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Sound/SE/5_TitleButtonSE.mp3
+Dependencies: []

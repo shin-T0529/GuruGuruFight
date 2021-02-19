@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 4132381535
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c3845d6d3994cdf46d39a8f141baa8e3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Sound/BGM/6_S_BattleBGM.mp3
+Dependencies: []

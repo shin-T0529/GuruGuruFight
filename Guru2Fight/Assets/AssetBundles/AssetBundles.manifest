@@ -1,0 +1,55 @@
+ManifestFileVersion: 0
+CRC: 3064739325
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: 1_playeratkhitse
+      Dependencies: {}
+    Info_1:
+      Name: 2_playerdeadse
+      Dependencies: {}
+    Info_2:
+      Name: 3_enemyatkhitse
+      Dependencies: {}
+    Info_3:
+      Name: 4_enemydeadse
+      Dependencies: {}
+    Info_4:
+      Name: 5_titlebuttonse
+      Dependencies: {}
+    Info_5:
+      Name: 6_buttonaddse
+      Dependencies: {}
+    Info_6:
+      Name: 7_battlestartse
+      Dependencies: {}
+    Info_7:
+      Name: 2_homebgm
+      Dependencies: {}
+    Info_8:
+      Name: 1_titlebgm
+      Dependencies: {}
+    Info_9:
+      Name: 3_confirmationbgm
+      Dependencies: {}
+    Info_10:
+      Name: 4_customize
+      Dependencies: {}
+    Info_11:
+      Name: 5_shopbgm
+      Dependencies: {}
+    Info_12:
+      Name: 6_s_battlebgm
+      Dependencies: {}
+    Info_13:
+      Name: 7_t_battlebgm
+      Dependencies: {}
+    Info_14:
+      Name: sefilename
+      Dependencies: {}
+    Info_15:
+      Name: 8_killhphealse
+      Dependencies: {}
+    Info_16:
+      Name: bgmfilename
+      Dependencies: {}

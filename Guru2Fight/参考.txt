@@ -1,0 +1,11 @@
+ジョイスティック処理
+https://www.youtube.com/watch?v=1J_F08meUYM
+
+カメラ回転
+https://mslgt.hatenablog.com/entry/2017/02/18/020630#20170218_rotate_camera
+
+カメラ回転+中心回転+追尾+進行方向取得
+https://tech.pjin.jp/blog/2016/11/04/unity_skill_5/
+
+他のスクリプト参照
+https://qiita.com/tsukasa_wear_parker/items/09d4bcc5af3556b9bb3a

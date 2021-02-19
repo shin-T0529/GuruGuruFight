@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1925808556
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7089e887fc7e72e0ea68ea61e251fab9
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Sound/SE/1_PlayerAtkHitSE.mp3
+Dependencies: []

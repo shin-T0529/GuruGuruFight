@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 197285866
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e85c8355940b537a122b5d578ad65ed2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/BGMFileName.csv
+Dependencies: []
