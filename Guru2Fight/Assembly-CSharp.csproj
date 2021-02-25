@@ -62,9 +62,10 @@
      <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FixedJoystick.cs" />
      <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
      <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
+     <Compile Include="Assets\Script\1_Title\TitleSetting.cs" />
      <Compile Include="Assets\Script\2_Home\BattleRecord.cs" />
      <Compile Include="Assets\Script\2_Home\TIme.cs" />
-     <Compile Include="Assets\Script\3_BattleConfirmation\Comfirmation.cs" />
+     <Compile Include="Assets\Script\3_BattleConfirmation\InforMation.cs" />
      <Compile Include="Assets\Script\3_BattleConfirmation\Reset.cs" />
      <Compile Include="Assets\Script\4_Customize\CharaCustom.cs" />
      <Compile Include="Assets\Script\4_Customize\CustomData.cs" />

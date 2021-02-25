@@ -25,6 +25,7 @@ public class PlayerState : MonoBehaviour
     public static bool Guru2Attack;                 //通常攻撃の管理フラグ.
     public static bool Guru2Skill;                  //スキル攻撃の管理フラグ.
     public static bool Gurad;
+    public static bool UseSkill;
     public static int EnemyKillCount;
 
     //Local.
@@ -37,28 +38,41 @@ public class PlayerState : MonoBehaviour
     {
         EnemyKillCount = 0;
         HealCheck = false;
+        UseSkill = false;
         Guru2Attack = false;
         charaState = this.GetComponent<CharaStateProc>();   //スクリプトの取得.
         seMusic = SetPlayer.GetComponent<SEMusic>();   //スクリプトの取得.
         charaCustom = this.GetComponent<CharaCustom>();   //スクリプトの取得.
+
 
         PlayerAnim = this.gameObject.GetComponent<Animation>();
     }
 
     void Update()
     {
+        //カスタムデータの適応を行う.
+        charaCustom.WeponList(Wepon1, Wepon2, Wepon3, CharaCustom.WeponNo);
+        charaCustom.ColorList(SetPlayer, CharaCustom.ColorNo);
+        charaCustom.SkillList(SetPlayer, CharaCustom.SkillNo, ref charaState.UseSkillPoint);
+
         //被弾時処理（HP減少処理：無敵時間の設定）.
+        seMusic.SEPlay(ref charaState.AtkHitSE, 1);
         charaState.HPProc(ref charaState.AtkHit);               //HP減少処理.
-        charaState.CharaDeadAnim(PlayerAnim, DeadAnim);
+
+        //スキルの処理.
+        SkillProc();
+        //ノックバック.
         charaState.CharaNockBack(ref charaState.DamageCnt);
 
-        charaCustom.WeponList(Wepon1, Wepon2, Wepon3,CharaCustom.WeponNo);
-        charaCustom.ColorList(SetPlayer, CharaCustom.ColorNo);
+
+        //死亡アニメーション処理.
+        charaState.CharaDeadAnim(PlayerAnim, DeadAnim);
+
 
         SetUpPlayerWepon(CharaCustom.WeponNo);
         KillHealProc();
 
-        seMusic.SEPlay(ref charaState.AtkHitSE, 1);
+
         //seMusic.SEPlay(ref charaState.Dead, 0);
     }
 
@@ -95,6 +109,24 @@ public class PlayerState : MonoBehaviour
             HealCheck = false;
         }
     }
+
+    void SkillProc()
+    {
+        charaState.SkillStateGet();
+
+        //スキル使用処理.
+        if (UseSkill == true && charaState.GuradSkill == false
+        && charaState.UseSkillPoint < charaState.CheckSkillPoint)
+        { seMusic.SEPlay(ref UseSkill, 7); }
+
+        if (UseSkill == true && CharaCustom.SkillNo == 1
+         && charaState.UseSkillPoint < charaState.CheckSkillPoint)
+        {
+            seMusic.SEPlay(ref HealCheck, 7);
+        }
+
+        charaState.SkillProc(ref UseSkill, CharaCustom.SkillNo);
+    }
     //アニメーション再生終了時.
     void Dead()
     {
@@ -117,7 +149,11 @@ public class PlayerState : MonoBehaviour
             Debug.Log("当たってしまった！！");
             charaState.AtkHit = true;
             charaState.AtkHitSE = true;
-            charaState.MaxDamage = 0.01f;
+            //防御アップのスキル使用時.
+            if(charaState.GuradSkill == true)
+            { charaState.MaxDamage = 0.02f; }
+            else
+            { charaState.MaxDamage = 0.05f; }
             charaState.DamageCnt++;
         }
     }

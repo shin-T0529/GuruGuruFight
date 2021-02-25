@@ -11,13 +11,15 @@ public class CharaStateProc : MonoBehaviour
     //pub.
     public int DamageCnt;
     public float MaxDamage;                     //受けるダメージ.
-
+    public float UseSkillPoint,CheckSkillPoint;
     public bool Dead,DeadWait;                  //死亡フラグと死亡猶予ﾌﾗｸﾞ.
     public bool EnemySet = false;               //アタッチ先で個々に切り替える.
     public bool AtkHit;
     public bool AtkHitSE;                       //ヒット時にSE鳴らす.
-
+    public bool SkillCheck;                     //スキル使用時に付随する追加効果の処理を行う用.
+    public bool GuradSkill;
     public Image HitPoint;                      //HP減少処理用.
+    public Image SkillPoint;                      //HP減少処理用.
 
 
     //pri.
@@ -29,6 +31,8 @@ public class CharaStateProc : MonoBehaviour
 
 
     //Local.
+    int SkillGauge;                             //スキルゲージ回復用.
+    int GuradSkillTime;                         //スキルの効果時間適応用.
     float lx, rx;                               //腕の回転値格納用.
     float AddPower;
     Vector3 Pos;                                //WorldC_HPの計算用.
@@ -38,13 +42,16 @@ public class CharaStateProc : MonoBehaviour
 
     void Start()
     {
+        SkillGauge = 0;
         DamageCnt = 0;
         rx = lx = 0;
         AddPower = 1000.0f;
         currentDamage = 0.0f;
+        UseSkillPoint = CheckSkillPoint = 0.0f;
         Dead = false;
         DeadWait = false;
         AtkHit = false;
+        SkillCheck = false;
         SESource = GetComponent<AudioSource>();
     }
 
@@ -53,6 +60,10 @@ public class CharaStateProc : MonoBehaviour
 
     }
 
+    public void SkillStateGet()
+    {
+        CheckSkillPoint = SkillPoint.fillAmount;
+    }
     //攻撃処理.
     public void Attack(bool AttackFlag, GameObject RollLeft,GameObject RollRight,int W_No)
     {
@@ -103,6 +114,7 @@ public class CharaStateProc : MonoBehaviour
                 break;
         }
     }
+    
     //HPの減少処理(攻撃ヒットﾌﾗｸﾞ).
     public void HPProc(ref bool Hit)
     {
@@ -133,6 +145,67 @@ public class CharaStateProc : MonoBehaviour
         }
     }
 
+    public void SkillProc(ref bool Skill,int SkillNo)
+    {
+        if (Skill == true)
+        {
+            switch (SkillNo)
+            {
+                case 0:
+                    //スキルセットなし.
+                    break;
+                case 1:
+                    //回復スキル.
+                    if(SkillPoint.fillAmount > 0.61f)
+                    {
+                        HitPoint.fillAmount += HitPoint.fillAmount / 2; //HPの計算.
+                        SkillPoint.fillAmount -= 0.61f;
+                    }
+                    break;
+                case 2:
+                    //防御スキル.
+                    if (SkillPoint.fillAmount > 0.61f)
+                    {
+                        SkillPoint.fillAmount -= 0.61f;
+                        GuradSkillTime++;
+                        GuradSkill = true;
+                    }
+
+                    break;
+                case 3:
+                    //遠距離攻撃.
+                    //if (SkillPoint.fillAmount > 0.81f)
+                    //{
+                    //    SkillPoint.fillAmount -= 0.81f;
+                    //}
+                    break;
+
+                default:
+                    break;
+            }
+            Skill = false;
+        }
+
+
+        //防御アップスキルの効果時間の設定.
+        if (GuradSkill == true)
+        {
+            GuradSkillTime++;
+            if(300 < GuradSkillTime)
+            {
+                GuradSkillTime = 0;
+                GuradSkill = false;
+            }
+        }
+
+        //スキルゲージの回復処理.
+        SkillGauge++;
+        if(100 < SkillGauge)
+        {
+            SkillPoint.fillAmount += 0.01f;
+            SkillGauge = 0;
+        }
+    }
     //死亡時のアニメーション再生.
     public void CharaDeadAnim(Animation animation, AnimationClip PlayAnim)
     {
@@ -157,12 +230,9 @@ public class CharaStateProc : MonoBehaviour
     //一定回数被弾時ノックバックする.
     public void CharaNockBack(ref int HitCnt)
     {
-        if(3 < HitCnt)
+        if(5 < HitCnt)
         {
             var rigidbody = GetComponent<Rigidbody>();
-            //敢えてある程度遠くへ飛ばす.
-            //rigidbody.AddForce(-transform.forward * 200f, ForceMode.VelocityChange);      //戻す方向,力の加え方.
-            //HitCnt = 0;
             rigidbody.AddForce(-transform.forward * AddPower, ForceMode.Impulse);      //戻す方向,力の加え方.
 
             AddPower -= 20.0f;

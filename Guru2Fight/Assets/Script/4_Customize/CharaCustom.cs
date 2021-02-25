@@ -107,9 +107,31 @@ public class CharaCustom : MonoBehaviour
 
     }
 
-    void SkillList()
+    //オブジェクト：スキルのセットNo：スキルゲージ消費量.
+    public void SkillList(GameObject ChangeObj,int SetSkillNo,ref float UsePoint)
     {
-
+        //なし：回復：遠距離攻撃の予定
+        switch (SetSkillNo)
+        {
+            case 0:
+                //スキルセットなし.
+                UsePoint = 0.0f;
+                break;
+            case 1:
+                //回復スキル.
+                UsePoint = 0.61f;
+                break;
+            case 2:
+                //防御アップ.
+                UsePoint = 0.61f;
+                break;
+            case 3:
+                UsePoint = 0.81f;
+                break;
+            default:
+                break;
+        }
+        WriteCustomData();
     }
 
     void WriteCustomData()

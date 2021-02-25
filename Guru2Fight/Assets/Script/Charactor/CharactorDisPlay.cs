@@ -9,6 +9,7 @@ public class CharactorDisPlay : MonoBehaviour
     public GameObject PlayerObject;
     public GameObject GuruArmX;
     public GameObject GuruArmY;
+    public GameObject GuruArmZ;
 
     //pri.
 
@@ -32,12 +33,20 @@ public class CharactorDisPlay : MonoBehaviour
             case 0: //デフォルト：ぐるぐるパンチ.
                 GuruArmX.SetActive(true);
                 GuruArmY.SetActive(false);
+                GuruArmZ.SetActive(false);
+
                 break;
             case 1: //ダブラリ.
                 GuruArmX.SetActive(false);
                 GuruArmY.SetActive(true);
+                GuruArmZ.SetActive(false);
+
                 break;
             case 2:
+                GuruArmX.SetActive(false);
+                GuruArmY.SetActive(false);
+                GuruArmZ.SetActive(true);
+
                 break;
             default:
                 break;

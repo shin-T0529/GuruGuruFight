@@ -130,7 +130,7 @@ public class ButtonProc : MonoBehaviour
     //ひとまず色変更.
     public void ColorChange(int SetColorNo)
     {
-        if (SetColorNo < 3)
+        if (SetColorNo < 8)
         {
             CharaCustom.ColorNo = SetColorNo;
             CharaCustom.WriteData = true;
@@ -140,4 +140,19 @@ public class ButtonProc : MonoBehaviour
             CharaCustom.WriteData = true;
         }
     }
+
+    //ひとまずスキル変更.
+    public void SkillChange(int SetSkillNo)
+    {
+        if (SetSkillNo < 4)
+        {
+            CharaCustom.SkillNo = SetSkillNo;
+            CharaCustom.WriteData = true;
+        }
+        else
+        {   //インデックス外の範囲選択ｴﾗｰ防止用(変更しない).
+            CharaCustom.WriteData = true;
+        }
+    }
+
 }

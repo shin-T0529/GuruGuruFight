@@ -36,14 +36,9 @@ public class PlayerUI : MonoBehaviour
     }
 
     /*************スキル使用*************/
-    public void OnS_Attack()
+    public void OnS_Use()
     {
-        //Attack.Guru2Skill = true;
-    }
-
-    public void OnS_Attack_End()
-    {
-        //Attack.Guru2Skill = false;
+        PlayerState.UseSkill = true;
     }
 
     /*************ガード*************/

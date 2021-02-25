@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7311251127301040376
 Transform:
   m_ObjectHideFlags: 0
@@ -216,7 +216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6801173986098120767
 Transform:
   m_ObjectHideFlags: 0
@@ -796,6 +796,8 @@ GameObject:
   - component: {fileID: 4110684842323318904}
   - component: {fileID: 2989337216209281716}
   - component: {fileID: 584973250372735440}
+  - component: {fileID: 7210401724679179904}
+  - component: {fileID: 7834930816732667418}
   m_Layer: 0
   m_Name: HPCollider
   m_TagString: PlayerHP
@@ -914,12 +916,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageCnt: 0
   MaxDamage: 0.01
+  UseSkillPoint: 0
+  CheckSkillPoint: 0
   Dead: 0
   DeadWait: 0
   EnemySet: 0
   AtkHit: 0
   AtkHitSE: 0
+  SkillCheck: 0
+  GuradSkill: 0
   HitPoint: {fileID: 0}
+  SkillPoint: {fileID: 0}
 --- !u!114 &4061790039276495961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,12 +957,12 @@ MonoBehaviour:
   Wepon1: {fileID: 205717042506066917}
   Wepon2: {fileID: 2477538684152245434}
   Wepon3: {fileID: 1477156528307743973}
-  GuruX_L: {fileID: 2318444933310395187}
-  GuruX_R: {fileID: 2318444934237843281}
-  GuruY_L: {fileID: 2318444935004111686}
-  GuruY_R: {fileID: 2318444933516098190}
-  GuruZ_L: {fileID: 7969959176496509153}
-  GuruZ_R: {fileID: 749073536881477672}
+  GuruX_L: {fileID: 2318444934139974822}
+  GuruX_R: {fileID: 2318444934503403902}
+  GuruY_L: {fileID: 2318444933454362292}
+  GuruY_R: {fileID: 2318444933211984286}
+  GuruZ_L: {fileID: 2469411532593333661}
+  GuruZ_R: {fileID: 6659342286988825684}
   Empty: {fileID: 2318444933523635309}
   HPBar: {fileID: 0}
   DeadAnim: {fileID: 7400000, guid: 27aac32d15729b741bb490cdbfadd142, type: 2}
@@ -1098,6 +1105,44 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7210401724679179904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318444933792753246}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6586ffc3e6f9d0d4688864e6f3eae0ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 2318444933792753246}
+  Wepon1: {fileID: 205717042506066917}
+  Wepon2: {fileID: 2477538684152245434}
+  Wepon3: {fileID: 1477156528307743973}
+  XL: {fileID: 2318444933310395187}
+  XR: {fileID: 2318444934237843281}
+  YL: {fileID: 2318444935004111686}
+  YR: {fileID: 2318444933516098190}
+  ZL: {fileID: 7969959176496509153}
+  ZR: {fileID: 749073536881477672}
+--- !u!114 &7834930816732667418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318444933792753246}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30db04cd5fc9c3a479c492cff7274e32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerObject: {fileID: 2318444933792753246}
+  GuruArmX: {fileID: 205717042506066917}
+  GuruArmY: {fileID: 2477538684152245434}
+  GuruArmZ: {fileID: 1477156528307743973}
 --- !u!1 &2318444934139974822
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,7 +1951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7751448724678323056
 Transform:
   m_ObjectHideFlags: 0
