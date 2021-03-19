@@ -6,18 +6,20 @@ public class CharaCustom : MonoBehaviour
 {
     //pub.
     public GameObject test;
+    public GameObject test2;
     //pub sta.
-    public static int WeponNo;      //攻撃用ウェポン.
-    public static int ColorNo;      //キャラクターの色.
-    public static int BodyNo;       //ステータス変更用の身体.
-    public static int SkillNo;      //戦闘中に使える特殊能力.
+    public static int WeponNo;          //攻撃用ウェポン.
+    public static int ColorNo;          //キャラクターの色.
+    public static int SkillNo;          //戦闘中に使える特殊能力.
+
+    public static int WeponResultCnt;   //ダメージ倍率設定用.
 
     public static bool WriteData;
     public static bool ReadFirst;
     //pri.
 
     //local.
-    ReadData readData;
+    ReadData readData,Readdata;
 
 
     void Start()
@@ -25,20 +27,23 @@ public class CharaCustom : MonoBehaviour
         if(ReadFirst == false)
         {
             readData = test.GetComponent<ReadData>();
-            readData.ReadRecordData(ReadData.GetInternalStoragePath(), "/CharaCustomData.csv");
+            readData.Read_Data(ReadData.GetInternalStoragePath(), "/CharaCustomData.csv");
             WeponNo = int.Parse(readData.ReadList[0]);
             ColorNo = int.Parse(readData.ReadList[1]);
-            BodyNo = int.Parse(readData.ReadList[2]);
-            SkillNo = int.Parse(readData.ReadList[3]);
+            SkillNo = int.Parse(readData.ReadList[2]);
             ReadFirst = true;
         }
+
+        //排出回数に応じて武器の威力強化を行う(X:  Y:3 Z:5).
+        Readdata = test2.GetComponent<ReadData>();
+        Readdata.Read_Data(ReadData.GetInternalStoragePath(), "/GachaData.csv");
 
         WriteData = false;
     }
 
     void Update()
     {
-        //readData = this.GetComponent<ReadData>();   //スクリプトの取得.
+
     }
 
     public void WeponList(GameObject Wepon1,GameObject Wepon2,
@@ -55,11 +60,13 @@ public class CharaCustom : MonoBehaviour
                 Wepon1.SetActive(false);
                 Wepon2.SetActive(true);
                 Wepon3.SetActive(false);
+                WeponResultCnt = int.Parse(Readdata.ReadList[3]);
                 break;
             case 2:
                 Wepon1.SetActive(false);
                 Wepon2.SetActive(false);
                 Wepon3.SetActive(true);
+                WeponResultCnt = int.Parse(Readdata.ReadList[5]);
                 break;
             default:
                 break;
@@ -100,11 +107,6 @@ public class CharaCustom : MonoBehaviour
                 break;
         }
         WriteCustomData();
-    }
-
-    void BodyList()
-    {
-
     }
 
     //オブジェクト：スキルのセットNo：スキルゲージ消費量.

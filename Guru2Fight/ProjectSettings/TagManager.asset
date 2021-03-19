@@ -9,7 +9,11 @@ TagManager:
   - EnemyAtStart
   - PlayerHP
   - E_GetComp
-  - Shelled
+  - StageWall
+  - SkillBullet
+  - TutorialTitle
+  - TutorialText
+  - TutorialTextArea
   layers:
   - Default
   - TransparentFX
@@ -19,8 +23,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Field
+  - Rader
   - 
   - 
   - 

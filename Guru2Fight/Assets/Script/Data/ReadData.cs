@@ -11,7 +11,7 @@ public class ReadData : MonoBehaviour
     //pub sta.
     public static bool ReadCheck = false;
     public List<string> ReadList = new List<string>();
-
+    public List<string> WriteList = new List<string>();
     //pri.
 
     //Local.
@@ -26,12 +26,14 @@ public class ReadData : MonoBehaviour
     }
 
     //汎用読込.
-    public void ReadRecordData(string FilePath,string FileName)
+    public void Read_Data(string FilePath,string FileName)
     {
+        ReadList = new List<string>();
         var combinedPath = FilePath + FileName;
         if (File.Exists(combinedPath))
         {//存在するとき.
             Debug.Log(FileName + "の読み込みを開始します。");
+            //R_Data(combinedPath);
             // 読み込みたいCSVファイルのパスを指定して開く
             StreamReader sr = new StreamReader(combinedPath);
             {
@@ -48,59 +50,38 @@ public class ReadData : MonoBehaviour
                 System.Console.ReadKey();
             }
         }
-        else
-        {
-            //ちょっと強引かもしれない.
-            Debug.Log(combinedPath + "にそのファイルは存在しません。作成します。");
-            //ファイルの作成.
-            using (var fs = new StreamWriter(combinedPath))
-            {
-                fs.WriteLine("0\n0\n0\n0\n1.0\n0");
-            }
-
-            // 読み込みたいCSVファイルのパスを指定して開く
-            StreamReader sr = new StreamReader(combinedPath);
-            {
-                // 末尾まで繰り返す
-                while (!sr.EndOfStream)
-                {
-                    // CSVファイルの一行を読み込む
-                    string line = sr.ReadLine();
-                    // 読み込んだ一行をカンマ毎に分けて配列に格納する
-                    string[] values = line.Split(',');
-                    // 配列からリストに格納する
-                    ReadList.AddRange(values);
-                }
-                System.Console.ReadKey();
-            }
-
-        }
-
     }
 
     //リストを引数にするのはよろしくないため、書き込みのみ各自で独立させる.
-    //バトル記録の書き込み.
     public void WriteRecordData(string FilePath)
     {
-        var combinedPath = FilePath + "/ReadCSV.csv";
+        var combinedPath = FilePath + "/Record.csv";
 
         //書き込み内容の更新.
-        WriteNaiyou = BattleRecord.RecordPlay + "\n" + BattleRecord.RecordPlay_M + "\n" +
-            BattleRecord.RecordWin + "\n" + BattleRecord.RecordWin_M + "\n" +
-            BattleRecord.RecordTime + "\n" + BattleRecord.RecordScore;
+        WriteList = new List<string>()
+         {  "Solo Play", Record.RecordPlay,
+            "Multi Play",Record.RecordPlay_M,
+            "Solo Win",Record.RecordWin,
+            "Multi Win",Record.RecordWin_M,
+            "TimeAttack MostRecord",Record.RecordTime,
+            "ScoreAttack MostRecord",Record.RecordScore,
+            "have G-Coins",GCoinProc.PossGCoin.ToString()
+         };
+
         using (var fs = new StreamWriter(combinedPath))
         {
-            fs.WriteLine(WriteNaiyou);
+            for(int i= 0; i < WriteList.Count; i += 2)
+            fs.WriteLine(WriteList[i] + "," + WriteList[i + 1]);
         }
     }
+    
     //キャラカスタマイズデータの書き込み.
     public void WriteCharaCustomData(string FilePath)
     {
         var combinedPath = FilePath + "/CharaCustomData.csv";
 
         //書き込み内容の更新.
-        WriteNaiyou = CharaCustom.WeponNo + "\n" + CharaCustom.ColorNo + "\n" +
-                      CharaCustom.BodyNo + "\n" + CharaCustom.SkillNo;
+        WriteNaiyou = CharaCustom.WeponNo + "\n" + CharaCustom.ColorNo + "\n" + CharaCustom.SkillNo;
         using (var fs = new StreamWriter(combinedPath))
         {
             fs.WriteLine(WriteNaiyou);

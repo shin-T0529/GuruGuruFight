@@ -21,7 +21,7 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
     //pri.
 
     //pub sta.
-
+    public static bool TutorialCheck;
     //Local.
     Vector3 move;
     float inputHorizontal;
@@ -75,6 +75,7 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
     //触っていないとき.
     public void OnPointerUp(PointerEventData eventData)
     {
+        TutorialCheck = false;
         moveForward = Vector3.zero;
         transform.localPosition = Vector3.zero;
         move = Vector3.zero;
@@ -84,7 +85,10 @@ public class JoyStick : MonoBehaviour, IDragHandler, IPointerUpHandler, IPointer
 
     //触っているとき.
     public void OnPointerDown(PointerEventData eventData)
-    { StartCoroutine("CharaMove"); }
+    {
+        TutorialCheck = true;
+        StartCoroutine("CharaMove");
+    }
 
     //エミュレータ.
     IEnumerator CharaMove()

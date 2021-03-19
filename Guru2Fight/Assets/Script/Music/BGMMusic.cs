@@ -7,6 +7,7 @@ public class BGMMusic : MonoBehaviour
 {
     //public.
     public GameObject BGMObject;
+    public int BGMSetNo;
 
     //pub sta.
     public static TextAsset csv;
@@ -15,7 +16,6 @@ public class BGMMusic : MonoBehaviour
     private int BGMListMax = 8;
 
     //Local.
-    int BGMSetNo;
     string SetBGMPath = "Sound/BGM/";       //リソースフォルダの読込先.
     ReadData readData;
 

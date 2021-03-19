@@ -46,7 +46,12 @@ public class CharactorDisPlay : MonoBehaviour
                 GuruArmX.SetActive(false);
                 GuruArmY.SetActive(false);
                 GuruArmZ.SetActive(true);
-
+                break;
+            case 3:
+                //ガチャリザルト用.
+                GuruArmX.SetActive(false);
+                GuruArmY.SetActive(false);
+                GuruArmZ.SetActive(false);
                 break;
             default:
                 break;

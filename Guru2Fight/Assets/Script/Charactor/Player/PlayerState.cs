@@ -9,6 +9,7 @@ public class PlayerState : MonoBehaviour
     public GameObject Player;
     public GameObject SetPlayer;
     public GameObject Wepon1, Wepon2,Wepon3;
+    public GameObject SkillBullet;
     //実際に動かす腕部分.
     public GameObject GuruX_L, GuruX_R;   //ぐるぐるパンチ.
     public GameObject GuruY_L, GuruY_R;       //ダブルラリアット.
@@ -20,7 +21,7 @@ public class PlayerState : MonoBehaviour
     public AnimationClip DeadAnim;
     //pri.
     private Animation PlayerAnim;
-
+    [SerializeField] private GameObject ShotPos;
     //pub sta.
     public static bool Guru2Attack;                 //通常攻撃の管理フラグ.
     public static bool Guru2Skill;                  //スキル攻撃の管理フラグ.
@@ -70,7 +71,7 @@ public class PlayerState : MonoBehaviour
 
 
         SetUpPlayerWepon(CharaCustom.WeponNo);
-        KillHealProc();
+        //KillHealProc();
 
 
         //seMusic.SEPlay(ref charaState.Dead, 0);
@@ -114,10 +115,12 @@ public class PlayerState : MonoBehaviour
     {
         charaState.SkillStateGet();
 
-        //スキル使用処理.
+        //スキルSE使用処理.
         if (UseSkill == true && charaState.GuradSkill == false
         && charaState.UseSkillPoint < charaState.CheckSkillPoint)
-        { seMusic.SEPlay(ref UseSkill, 7); }
+        {
+            seMusic.SEPlay(ref UseSkill, 7);
+        }
 
         if (UseSkill == true && CharaCustom.SkillNo == 1
          && charaState.UseSkillPoint < charaState.CheckSkillPoint)
@@ -125,8 +128,13 @@ public class PlayerState : MonoBehaviour
             seMusic.SEPlay(ref HealCheck, 7);
         }
 
-        charaState.SkillProc(ref UseSkill, CharaCustom.SkillNo);
+        if (UseSkill == true && charaState.BulletSkill == false
+            && charaState.UseSkillPoint < charaState.CheckSkillPoint)
+        { seMusic.SEPlay(ref UseSkill, 7); }
+
+        charaState.SkillProc(ref UseSkill, CharaCustom.SkillNo, ShotPos, SkillBullet);
     }
+
     //アニメーション再生終了時.
     void Dead()
     {
@@ -144,17 +152,20 @@ public class PlayerState : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
-        {//敵に攻撃が当たった時.
-            Debug.Log("当たってしまった！！");
-            charaState.AtkHit = true;
-            charaState.AtkHitSE = true;
-            //防御アップのスキル使用時.
-            if(charaState.GuradSkill == true)
-            { charaState.MaxDamage = 0.02f; }
-            else
-            { charaState.MaxDamage = 0.05f; }
-            charaState.DamageCnt++;
+        if(T_Controll.TutorialCheck != true)
+        {
+            if (collision.gameObject.tag == "Enemy")
+            {//敵に攻撃が当たった時.
+                Debug.Log("当たってしまった！！");
+                charaState.AtkHit = true;
+                charaState.AtkHitSE = true;
+                //防御アップのスキル使用時.
+                if (charaState.GuradSkill == true)
+                { charaState.MaxDamage = 0.02f; }
+                else
+                { charaState.MaxDamage = 0.04f; }
+                charaState.DamageCnt++;
+            }
         }
     }
 }

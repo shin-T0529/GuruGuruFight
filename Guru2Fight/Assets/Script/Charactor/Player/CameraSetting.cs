@@ -11,7 +11,7 @@ public class CameraSetting : MonoBehaviour
     //private
 
     //public static
-
+    public static bool CameraT_Check;
     //local
     float x;
     Vector3 targetPos;
@@ -19,6 +19,7 @@ public class CameraSetting : MonoBehaviour
     //移動するオブジェクトに追従し、回転するカメラの設定.
     void Start()
     {
+        CameraT_Check = false;
         targetPos = targetObj.transform.position;
     }
 
@@ -29,9 +30,19 @@ public class CameraSetting : MonoBehaviour
         Camera.main.transform.position += targetObj.transform.position - targetPos;
         targetPos = targetObj.transform.position;
 
-        // マウスの移動量
-        float mouseInputX = x;
-        // targetの位置のY軸を中心に、回転（公転）.
-        Camera.main.transform.RotateAround(targetPos, Vector3.up, mouseInputX * Time.deltaTime * 100f);
+        //回転だけチュートリアルシステムのため制限ををかける.
+        if (x != 0.0f)
+        {
+            CameraT_Check = true;
+
+            // マウスの移動量
+            float mouseInputX = x;
+            // targetの位置のY軸を中心に、回転（公転）.
+            Camera.main.transform.RotateAround(targetPos, Vector3.up, mouseInputX * Time.deltaTime * 100f);
+        }
+        else
+        {
+            CameraT_Check = false;
+        }
     }
 }

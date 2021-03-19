@@ -1,4 +1,0 @@
-#Wed Feb 17 11:43:30 JST 2021
-base.0=D\:\\Unity-Games\\Guru2Fight\\Temp\\gradleOut\\launcher\\build\\intermediates\\transforms\\dexMerger\\release\\0
-path.0=classes.dex
-renamed.0=classes.dex

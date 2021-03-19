@@ -7,7 +7,7 @@ public class EnemyCreate : MonoBehaviour
     //pub.
     public GameObject Enemy;
     public GameObject EnemyHP;
-    public GameObject canvas;//キャンバス
+    public GameObject canvas;   //HP表示用キャンバス.
 
     //pri.
 

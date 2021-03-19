@@ -47,15 +47,15 @@ public class EnemyState : MonoBehaviour
         //seMusic.SEPlay(ref charaState.Dead, 1);
 
         //ヒットストップ.
-        if(agent.isStopped == true)
-        {
-            StopCheckCnt++;
-            if (50 < StopCheckCnt)
-            {
-                agent.isStopped = false;
-                StopCheckCnt = 0;
-            }
-        }
+        //if(agent.isStopped == true)
+        //{
+        //    StopCheckCnt++;
+        //    if (50 < StopCheckCnt)
+        //    {
+        //        agent.isStopped = false;
+        //        StopCheckCnt = 0;
+        //    }
+        //}
     }
 
     void Dead()
@@ -83,10 +83,26 @@ public class EnemyState : MonoBehaviour
                 Debug.Log("当たられた！");
                 charaState.AtkHit = true;
                 charaState.AtkHitSE = true;
-                charaState.MaxDamage = 0.6f;
+                //ダメージ倍率の設定(基本ダメージ＋出た回数×0.01).
+                charaState.MaxDamage = 0.3f + CharaCustom.WeponResultCnt * 0.01f;
                 //追跡を止める
                 agent.isStopped = true;
             }
+        }
+
+
+    }
+
+    void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.tag == "SkillBullet")
+        {
+            Debug.Log("一撃でやられた～！");
+            charaState.AtkHit = true;
+            charaState.AtkHitSE = true;
+            charaState.MaxDamage = 1.0f;
+            //追跡を止める
+            agent.isStopped = true;
         }
     }
 }

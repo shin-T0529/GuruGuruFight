@@ -82,7 +82,7 @@ public class InforMation : MonoBehaviour
                 SkillName.text = "DefUP";
                 break;
             case 3:
-                SkillName.text = "未実装";
+                SkillName.text = "Throwing Attack";
                 break;
             default:
                 break;

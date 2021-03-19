@@ -15,8 +15,9 @@ public class ResultProc : MonoBehaviour
 
     public Text ScoreCount;
     public Text TimeCount, TimeRecord;
+    public Text GetCoin;
 
-    public AnimationClip WindowAnim_W;
+public AnimationClip WindowAnim_W;
     public AnimationClip WindowAnim_L;
     public int EnemyDefeat;
 
@@ -35,8 +36,8 @@ public class ResultProc : MonoBehaviour
         charaState = PlayerObject.GetComponent<CharaStateProc>();   //スクリプトの取得.
         UIAnim = this.gameObject.GetComponent<Animation>();
 
-        PlayCount = int.Parse(BattleRecord.RecordPlay);
-        WinCount = int.Parse(BattleRecord.RecordWin);
+        PlayCount = int.Parse(Record.RecordPlay);
+        WinCount = int.Parse(Record.RecordWin);
     }
 
     void Update()
@@ -65,21 +66,27 @@ public class ResultProc : MonoBehaviour
             UIAnim.Play();
 
             //レコード用の記録開始.
-            if(int.Parse(BattleRecord.RecordScore) < Score.ScoreCount)
+            if(int.Parse(Record.RecordScore) < Score.ScoreCount)
             {
-                BattleRecord.RecordScore = Score.ScoreCount.ToString();
+                Record.RecordScore = Score.ScoreCount.ToString();
             }
-            ScoreCount.text = "Clear Score " + Score.ScoreCount;
+            ScoreCount.text = "Clear Score : " + Score.ScoreCount;
+
+            //ゲーム内通貨の加算.
+            GCoinProc.GetGCoin = Score.ScoreCount / 10;
+            GCoinProc.PossGCoin = GCoinProc.PossGCoin + GCoinProc.GetGCoin;
+            GetCoin.text = "Get G-Coins : "  + GCoinProc.GetGCoin.ToString();
 
             //プレイ回数の記録.
             PlayCount++;
-            BattleRecord.RecordPlay = PlayCount.ToString();
+            Record.RecordPlay = PlayCount.ToString();
             WinCount++;
-            BattleRecord.RecordWin = WinCount.ToString();
+            Record.RecordWin = WinCount.ToString();
             readData.WriteRecordData(ReadData.GetInternalStoragePath());
             End = true;
         }
     }
+
     /*タイムアタック管理用*/
     void TimeAttackModeResult(ref bool End)
     {
@@ -93,25 +100,30 @@ public class ResultProc : MonoBehaviour
             UIAnim.clip = WindowAnim_W;
             UIAnim.Play();
 
+            //ゲーム内通貨の加算.
+            GCoinProc.GetGCoin = 50;
+            GCoinProc.PossGCoin = GCoinProc.PossGCoin + GCoinProc.GetGCoin;
+            GetCoin.text = "Get G-Coins : " + GCoinProc.GetGCoin.ToString();
+
             /****レコード用の記録開始****/
             //プレイ回数の記録.
             PlayCount++;
-            BattleRecord.RecordPlay = PlayCount.ToString();
+            Record.RecordPlay = PlayCount.ToString();
             WinCount++;
-            BattleRecord.RecordWin = WinCount.ToString();
+            Record.RecordWin = WinCount.ToString();
             readData.WriteRecordData(ReadData.GetInternalStoragePath());               //一度回数だけ記録する.
 
             //クリアタイム更新するかの判定.
             TimeRecord.text = "Clear Time" + TimeCount.text;
-            float Record = float.Parse(BattleRecord.RecordTime);   //記録比較用.
-            float NowTime = float.Parse(TimeCount.text);           //今回の記録.
+            float LastRecord = float.Parse(Record.RecordTime);      //記録比較用.
+            float NowTime = float.Parse(TimeCount.text);        //今回の記録.
             //最高記録と比較.
-            if (NowTime < Record)
+            if (NowTime < LastRecord)
             {
-                BattleRecord.RecordTime = NowTime.ToString();      //今回の記録を入れる.
+                Record.RecordTime = NowTime.ToString();      //今回の記録を入れる.
                 readData.WriteRecordData(ReadData.GetInternalStoragePath());
             }
-            //BattleRecord.RecordTime = TimeCount.text;
+            //Record.RecordTime = TimeCount.text;
 
             End = true;
         }
@@ -123,14 +135,12 @@ public class ResultProc : MonoBehaviour
             UIAnim.Play();
             //プレイ回数の記録.
             PlayCount++;
-            BattleRecord.RecordPlay = PlayCount.ToString();
+            Record.RecordPlay = PlayCount.ToString();
             readData.WriteRecordData(ReadData.GetInternalStoragePath());
 
             End = true;
         }
     }
-
-
 
     /*ウィンドウアニメ操作*/
     void WinAnimEnd()

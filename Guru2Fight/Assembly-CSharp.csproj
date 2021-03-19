@@ -63,15 +63,25 @@
      <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
      <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
      <Compile Include="Assets\Script\1_Title\TitleSetting.cs" />
-     <Compile Include="Assets\Script\2_Home\BattleRecord.cs" />
+     <Compile Include="Assets\Script\2_Home\Record.cs" />
      <Compile Include="Assets\Script\2_Home\TIme.cs" />
      <Compile Include="Assets\Script\3_BattleConfirmation\InforMation.cs" />
      <Compile Include="Assets\Script\3_BattleConfirmation\Reset.cs" />
      <Compile Include="Assets\Script\4_Customize\CharaCustom.cs" />
-     <Compile Include="Assets\Script\4_Customize\CustomData.cs" />
+     <Compile Include="Assets\Script\4_Customize\haveParts.cs" />
+     <Compile Include="Assets\Script\5_Shop\CustomPartRead.cs" />
+     <Compile Include="Assets\Script\5_Shop\GachaEff.cs" />
+     <Compile Include="Assets\Script\5_Shop\ShopProc.cs" />
      <Compile Include="Assets\Script\6_ScoreAttack\ResultProc.cs" />
      <Compile Include="Assets\Script\6_ScoreAttack\Score.cs" />
      <Compile Include="Assets\Script\7_TimeAttack\Timer.cs" />
+     <Compile Include="Assets\Script\8_TutrialFight\T_Controll.cs" />
+     <Compile Include="Assets\Script\8_TutrialFight\Task\T_Attack.cs" />
+     <Compile Include="Assets\Script\8_TutrialFight\Task\T_Battle.cs" />
+     <Compile Include="Assets\Script\8_TutrialFight\Task\T_Camera.cs" />
+     <Compile Include="Assets\Script\8_TutrialFight\Task\T_End.cs" />
+     <Compile Include="Assets\Script\8_TutrialFight\Task\T_Move.cs" />
+     <Compile Include="Assets\Script\8_TutrialFight\Tutorial.cs" />
      <Compile Include="Assets\Script\Charactor\CharaStateProc.cs" />
      <Compile Include="Assets\Script\Charactor\CharactorDisPlay.cs" />
      <Compile Include="Assets\Script\Charactor\Enemy\EnemyAttack.cs" />
@@ -84,8 +94,10 @@
      <Compile Include="Assets\Script\Charactor\Player\JoyStick.cs" />
      <Compile Include="Assets\Script\Charactor\Player\PlayerState.cs" />
      <Compile Include="Assets\Script\Charactor\Player\PlayerUI.cs" />
+     <Compile Include="Assets\Script\Charactor\Player\S_BulletColl.cs" />
      <Compile Include="Assets\Script\Charactor\Player\WeponState.cs" />
      <Compile Include="Assets\Script\Data\ReadData.cs" />
+     <Compile Include="Assets\Script\G-Coin\GCoinProc.cs" />
      <Compile Include="Assets\Script\Music\BGMMusic.cs" />
      <Compile Include="Assets\Script\Music\SEMusic.cs" />
      <Compile Include="Assets\Script\UI\ButtonProc.cs" />
@@ -268,6 +280,9 @@
  </Reference>
  <Reference Include="UnityEditor">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.8f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>D:/Unity-Games/Guru2Fight/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.8f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -655,6 +670,10 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{2AFFA44F-83BD-C0FB-1601-F872B53AC2E9}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

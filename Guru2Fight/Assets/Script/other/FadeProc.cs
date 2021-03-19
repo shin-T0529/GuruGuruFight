@@ -9,7 +9,7 @@ public class FadeProc : MonoBehaviour
     //pub.
     public Image FadeImage;              //操作するフェード用暗幕.
     public GameObject FadeCanvas;   //ON/OFFを切り替える.
-
+    public float FadeSpeed = 0.01f;
     //pri.
 
     //pub sta.
@@ -40,7 +40,7 @@ public class FadeProc : MonoBehaviour
             if (Fade == true && FadeOnOff == true)
             {
                 FadeImage.GetComponent<Image>().color = new Color(0.0f, 0.0f, 0.0f, alfa);
-                alfa -= 0.05f;
+                alfa -= FadeSpeed;
                 if(alfa < 0.0f)
                 {
                     FadeCanvas.SetActive(false);
@@ -54,7 +54,7 @@ public class FadeProc : MonoBehaviour
             {
                 FadeCanvas.SetActive(true);
                 FadeImage.GetComponent<Image>().color = new Color(0.0f, 0.0f, 0.0f, alfa);
-                alfa += 0.01f;
+                alfa += FadeSpeed;
                 FadeChange(FadeJumpScene);
             }
         }

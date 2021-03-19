@@ -9,3 +9,6 @@ https://tech.pjin.jp/blog/2016/11/04/unity_skill_5/
 
 他のスクリプト参照
 https://qiita.com/tsukasa_wear_parker/items/09d4bcc5af3556b9bb3a
+
+チュートリアルシステム
+https://gomafrontier.com/unity/2183

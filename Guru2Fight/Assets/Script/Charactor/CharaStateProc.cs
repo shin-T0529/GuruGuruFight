@@ -18,12 +18,13 @@ public class CharaStateProc : MonoBehaviour
     public bool AtkHitSE;                       //ヒット時にSE鳴らす.
     public bool SkillCheck;                     //スキル使用時に付随する追加効果の処理を行う用.
     public bool GuradSkill;
+    public bool BulletSkill;
     public Image HitPoint;                      //HP減少処理用.
     public Image SkillPoint;                      //HP減少処理用.
 
 
     //pri.
-    private float DamageSpeed = 0.005f;         //HP減少速度.
+    private float DamageSpeed = 0.05f;         //HP減少速度.
     private float currentDamage;                //内部計算用.
 
 
@@ -32,13 +33,12 @@ public class CharaStateProc : MonoBehaviour
 
     //Local.
     int SkillGauge;                             //スキルゲージ回復用.
-    int GuradSkillTime;                         //スキルの効果時間適応用.
+    int GuradSkillTime, BulletSkillTime;         //スキルの効果時間適応用.
     float lx, rx;                               //腕の回転値格納用.
     float AddPower;
-    Vector3 Pos;                                //WorldC_HPの計算用.
-    Vector3 Rotate;                             //同上.
-
-
+    Vector3 Pos, Rotate;                        //WorldC_HPの計算用.
+    Vector3 CrePos;                             //同上.
+    Rigidbody BuAdd;
 
     void Start()
     {
@@ -64,6 +64,7 @@ public class CharaStateProc : MonoBehaviour
     {
         CheckSkillPoint = SkillPoint.fillAmount;
     }
+
     //攻撃処理.
     public void Attack(bool AttackFlag, GameObject RollLeft,GameObject RollRight,int W_No)
     {
@@ -120,15 +121,15 @@ public class CharaStateProc : MonoBehaviour
     {
         if(Hit == true)
         {
-            if (currentDamage < MaxDamage && HitPoint.fillAmount != 0.0f)
+            if (currentDamage < MaxDamage)
             {
-                if (HitPoint.fillAmount < MaxDamage && DeadWait == false)
+                if (HitPoint.fillAmount <= MaxDamage && DeadWait == false)
                 {//ゲージ無くなると死亡までのラグを無くすため.
                     Debug.Log("死ぬ準備します");
                     DeadWait = true;
                 }
                 HitPoint.fillAmount -= DamageSpeed; //HPの計算.
-                currentDamage += 0.01f;        //徐々に減らすため加算していく.
+                currentDamage += 0.05f;        //徐々に減らすため加算していく.
                 if(DeadWait == true && HitPoint.fillAmount <= 0.0f)
                 {
                     Debug.Log("死にます");
@@ -145,7 +146,7 @@ public class CharaStateProc : MonoBehaviour
         }
     }
 
-    public void SkillProc(ref bool Skill,int SkillNo)
+    public void SkillProc(ref bool Skill,int SkillNo,GameObject SetPlayer,GameObject CreateObj)
     {
         if (Skill == true)
         {
@@ -174,10 +175,17 @@ public class CharaStateProc : MonoBehaviour
                     break;
                 case 3:
                     //遠距離攻撃.
-                    //if (SkillPoint.fillAmount > 0.81f)
-                    //{
-                    //    SkillPoint.fillAmount -= 0.81f;
-                    //}
+                    if (SkillPoint.fillAmount > 0.81f && BulletSkill == false)
+                    {
+                        CrePos = SetPlayer.transform.position;
+                        GameObject ShpBullet = (GameObject)Instantiate(CreateObj, CrePos, Quaternion.identity);
+                        BuAdd = ShpBullet.GetComponent<Rigidbody>();
+                        AddPower = 700.0f;
+                        BuAdd.AddForce(transform.forward * AddPower);      //戻す方向,力の加え方.
+                        ShpBullet.SetActive(true);
+                        SkillPoint.fillAmount -= 0.81f;
+                        BulletSkill = true;
+                    }
                     break;
 
                 default:
@@ -198,14 +206,29 @@ public class CharaStateProc : MonoBehaviour
             }
         }
 
+        if(BulletSkill == true)
+        {
+            if (200 < BulletSkillTime)
+            {
+                AddPower = 1.0f;
+                BulletSkill = false;
+                BulletSkillTime = 0;
+                //Destroy(ShpBullet);
+            }
+            else
+            {
+                BulletSkillTime++;
+            }
+        }
         //スキルゲージの回復処理.
         SkillGauge++;
-        if(100 < SkillGauge)
+        if(10 < SkillGauge)
         {
             SkillPoint.fillAmount += 0.01f;
             SkillGauge = 0;
         }
     }
+
     //死亡時のアニメーション再生.
     public void CharaDeadAnim(Animation animation, AnimationClip PlayAnim)
     {

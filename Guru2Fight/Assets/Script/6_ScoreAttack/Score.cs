@@ -20,6 +20,7 @@ public class Score : MonoBehaviour
     {
         ScoreCount = 0;     //切り替わる前にスコアを記録するようにする.
         ButtonProc.BattleType = 1;
+        S_GameEnd = false;
     }
 
     // Update is called once per frame

@@ -11,11 +11,11 @@ public class SEMusic : MonoBehaviour
     //pub sta.
     public static int BGMSetNo;
     public static TextAsset SEcsv;
-    public static List<string> testList = new List<string>();
+    //public static List<string> testList = new List<string>();
     public static bool orensyu;
 
     //pri.
-    private int SEListMax = 8;
+
     //Local.
     int PlayCnt;
     string SetSEPath = "Sound/SE/";       //リソースフォルダの読込先.
@@ -52,7 +52,7 @@ public class SEMusic : MonoBehaviour
         string bundleUrl = Path.Combine(Application.streamingAssetsPath, asset_name); //Asset BundleのPath
  
         Debug.Log(asset_name +"の読み込みを開始します");
-
+        readData.ReadList = new List<string>();
         if (SEcsv == null) //複数読み込み回避
         {
             AssetBundle assetBundle = 
@@ -65,7 +65,7 @@ public class SEMusic : MonoBehaviour
         //testList.AddRange(values);
         readData.ReadList.AddRange(values);
 
-        for (int i = 0; i < SEListMax; i++) 
+        for (int i = 0; i < readData.ReadList.Count; i++) 
         {
             Debug.Log(readData.ReadList[i]);
         }
@@ -75,7 +75,7 @@ public class SEMusic : MonoBehaviour
 //#elif UNITY_EDITOR
 //        //Unity上での処理
 #else
-        readData.ReadRecordData("", @"Assets/BGMFileName.csv");
+        readData.Read_Data("", @"Assets/SEFileName.csv");
         for (int i = 0; i < SEListMax; i++) 
         {
             Debug.Log(readData.ReadList[i]);

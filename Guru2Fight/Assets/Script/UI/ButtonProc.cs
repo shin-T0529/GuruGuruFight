@@ -9,7 +9,7 @@ public class ButtonProc : MonoBehaviour
     public int BattleSet;
     public int SetCont;
 
-    public GameObject MainAnimObject;
+    public GameObject MainAnimObject;       //代用もできる.
     //アニメ派生先用.
     public GameObject NextAnimObject1;
     public GameObject NextAnimObject2;
@@ -155,4 +155,34 @@ public class ButtonProc : MonoBehaviour
         }
     }
 
+    //ガチャ関連.
+    //単発.
+    public void OnceGacha(GameObject Window)
+    {
+        if (500 <= GCoinProc.PossGCoin)
+        {
+            MainAnimObject.SetActive(true);
+            CustomPartRead.OnceGC = true;
+        }
+        else
+        {
+            Window.SetActive(true);
+        }
+    }
+
+    public void MessageClose(GameObject Window)
+    {
+        Window.SetActive(false);
+    }
+    //
+    public void GachaResultClose()
+    {
+        GachaEff.RollImage = false;
+        MainAnimObject.SetActive(false);
+    }
+    //エラーウィンドウ表示アニメ後.
+    void MessageAnim()
+    {
+        MainAnimObject.SetActive(true);
+    }
 }

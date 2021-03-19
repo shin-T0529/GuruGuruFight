@@ -533,6 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ReadList: []
+  WriteList: []
 --- !u!4 &292364951 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2318444933355906655, guid: c92c3f7da5edf6049bc150656d9b65cf,
@@ -2025,6 +2026,11 @@ PrefabInstance:
       propertyPath: FadeCanvas
       value: 
       objectReference: {fileID: 701602340}
+    - target: {fileID: 4833968177666551694, guid: 02cc411abbcd1a546aa5fc377f403db6,
+        type: 3}
+      propertyPath: FadeSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 4833968177666551695, guid: 02cc411abbcd1a546aa5fc377f403db6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2097,7 +2103,7 @@ PrefabInstance:
     - target: {fileID: 7154450138351195349, guid: 195783265768c89479f2bdc3d8daba80,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7154450138351195353, guid: 195783265768c89479f2bdc3d8daba80,
         type: 3}
