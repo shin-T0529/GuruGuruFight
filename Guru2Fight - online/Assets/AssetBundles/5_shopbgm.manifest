@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1381714263
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: eb74927dcc4e76e033a0d000f4c829c0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Sound/BGM/5_ShopBGM.mp3
+Dependencies: []

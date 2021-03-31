@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3037590129
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0158da40f64974facb4f4c098d307680
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Sound/BGM/4_Customize.mp3
+Dependencies: []

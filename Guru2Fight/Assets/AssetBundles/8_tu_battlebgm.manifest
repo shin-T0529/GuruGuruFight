@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3861259233
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 70bfbd0cee93ca3dab234a69ce5b1881
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Sound/BGM/8_Tu_BattleBGM.mp3
+Dependencies: []

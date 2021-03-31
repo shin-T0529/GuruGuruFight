@@ -7,11 +7,13 @@ ScriptsOnlyBuild:
     - CharaCustom
     - CharaStateProc
     - CharactorDisPlay
+    - ColliderSetting
     - CustomPartRead
     - EnemyAttack
     - EnemyCreate
     - EnemyState
     - FadeProc
+    - GachaCreate
     - GachaEff
     - Gizmo
     - InforMation
@@ -134,15 +136,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12750}
     - Class: 114
-      Script: {instanceID: 12912}
+      Script: {instanceID: 12914}
     - Class: 114
-      Script: {instanceID: 12924}
+      Script: {instanceID: 12926}
     - Class: 114
-      Script: {instanceID: 12960}
+      Script: {instanceID: 12962}
     - Class: 114
-      Script: {instanceID: 13048}
+      Script: {instanceID: 13050}
     - Class: 114
-      Script: {instanceID: 13118}
+      Script: {instanceID: 13120}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -235,17 +237,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12750}
     - Class: 114
-      Script: {instanceID: 12912}
+      Script: {instanceID: 12914}
     - Class: 114
-      Script: {instanceID: 12924}
+      Script: {instanceID: 12926}
     - Class: 114
-      Script: {instanceID: 12942}
+      Script: {instanceID: 12944}
     - Class: 114
-      Script: {instanceID: 12960}
+      Script: {instanceID: 12962}
     - Class: 114
-      Script: {instanceID: 13048}
+      Script: {instanceID: 13050}
     - Class: 114
-      Script: {instanceID: 13118}
+      Script: {instanceID: 13120}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -334,17 +336,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12750}
     - Class: 114
-      Script: {instanceID: 12912}
+      Script: {instanceID: 12914}
     - Class: 114
-      Script: {instanceID: 12924}
+      Script: {instanceID: 12926}
     - Class: 114
-      Script: {instanceID: 12960}
+      Script: {instanceID: 12962}
     - Class: 114
-      Script: {instanceID: 13048}
+      Script: {instanceID: 13050}
     - Class: 114
-      Script: {instanceID: 13118}
+      Script: {instanceID: 13120}
     - Class: 114
-      Script: {instanceID: 18422}
+      Script: {instanceID: 38744}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -435,17 +437,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12750}
     - Class: 114
-      Script: {instanceID: 12912}
+      Script: {instanceID: 12914}
     - Class: 114
-      Script: {instanceID: 12924}
+      Script: {instanceID: 12926}
     - Class: 114
-      Script: {instanceID: 12960}
+      Script: {instanceID: 12962}
     - Class: 114
-      Script: {instanceID: 12974}
+      Script: {instanceID: 12976}
     - Class: 114
-      Script: {instanceID: 13048}
+      Script: {instanceID: 13050}
     - Class: 114
-      Script: {instanceID: 13118}
+      Script: {instanceID: 13120}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -487,6 +489,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 54
       Script: {instanceID: 0}
+    - Class: 64
+      Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
     - Class: 74
@@ -526,6 +530,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11790}
     - Class: 114
+      Script: {instanceID: 11986}
+    - Class: 114
       Script: {instanceID: 12000}
     - Class: 114
       Script: {instanceID: 12038}
@@ -546,17 +552,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12750}
     - Class: 114
-      Script: {instanceID: 12912}
+      Script: {instanceID: 12784}
     - Class: 114
-      Script: {instanceID: 12924}
+      Script: {instanceID: 12914}
     - Class: 114
-      Script: {instanceID: 12960}
+      Script: {instanceID: 12926}
     - Class: 114
-      Script: {instanceID: 12974}
+      Script: {instanceID: 12962}
     - Class: 114
-      Script: {instanceID: 13048}
+      Script: {instanceID: 12976}
     - Class: 114
-      Script: {instanceID: 13118}
+      Script: {instanceID: 13050}
+    - Class: 114
+      Script: {instanceID: 13120}
+    - Class: 114
+      Script: {instanceID: 14008}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -665,21 +675,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12750}
     - Class: 114
-      Script: {instanceID: 12912}
+      Script: {instanceID: 12914}
     - Class: 114
-      Script: {instanceID: 12924}
+      Script: {instanceID: 12926}
     - Class: 114
-      Script: {instanceID: 12960}
+      Script: {instanceID: 12962}
     - Class: 114
-      Script: {instanceID: 13048}
+      Script: {instanceID: 13050}
     - Class: 114
-      Script: {instanceID: 13078}
-    - Class: 114
-      Script: {instanceID: 13116}
+      Script: {instanceID: 13080}
     - Class: 114
       Script: {instanceID: 13118}
     - Class: 114
-      Script: {instanceID: 13170}
+      Script: {instanceID: 13120}
+    - Class: 114
+      Script: {instanceID: 13172}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -792,21 +802,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12750}
     - Class: 114
-      Script: {instanceID: 12912}
+      Script: {instanceID: 12914}
     - Class: 114
-      Script: {instanceID: 12924}
+      Script: {instanceID: 12926}
     - Class: 114
-      Script: {instanceID: 12960}
+      Script: {instanceID: 12962}
     - Class: 114
-      Script: {instanceID: 13048}
+      Script: {instanceID: 13050}
     - Class: 114
-      Script: {instanceID: 13078}
-    - Class: 114
-      Script: {instanceID: 13116}
+      Script: {instanceID: 13080}
     - Class: 114
       Script: {instanceID: 13118}
     - Class: 114
-      Script: {instanceID: 13170}
+      Script: {instanceID: 13120}
+    - Class: 114
+      Script: {instanceID: 13172}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -917,23 +927,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12750}
     - Class: 114
-      Script: {instanceID: 12912}
+      Script: {instanceID: 12914}
     - Class: 114
-      Script: {instanceID: 12916}
+      Script: {instanceID: 12918}
     - Class: 114
-      Script: {instanceID: 12924}
+      Script: {instanceID: 12926}
     - Class: 114
-      Script: {instanceID: 12960}
+      Script: {instanceID: 12962}
     - Class: 114
-      Script: {instanceID: 13048}
+      Script: {instanceID: 13050}
     - Class: 114
-      Script: {instanceID: 13078}
-    - Class: 114
-      Script: {instanceID: 13116}
+      Script: {instanceID: 13080}
     - Class: 114
       Script: {instanceID: 13118}
     - Class: 114
-      Script: {instanceID: 13170}
+      Script: {instanceID: 13120}
+    - Class: 114
+      Script: {instanceID: 13172}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1529,6 +1539,12 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
+      Hash: 4e39b7c2170293eae33036b140bf5bf2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GachaCreate
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -1705,4 +1721,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/6_ScoreFight.unity
   - Assets/Scenes/7_Time_Fight.unity
   - Assets/Scenes/8_TutorialFight.unity
-  playerPath: D:/Android/SDK/BuildAppData/Guru2Fight!!/beta/Guru2Fight!!-beta-1.1.1.apk
+  playerPath: D:/Android/SDK/BuildAppData/Guru2Fight!!/beta/Guru2Fight!!-beta-1.1.2.apk

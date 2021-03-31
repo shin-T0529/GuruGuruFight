@@ -70,6 +70,7 @@
      <Compile Include="Assets\Script\4_Customize\CharaCustom.cs" />
      <Compile Include="Assets\Script\4_Customize\haveParts.cs" />
      <Compile Include="Assets\Script\5_Shop\CustomPartRead.cs" />
+     <Compile Include="Assets\Script\5_Shop\GachaCreate.cs" />
      <Compile Include="Assets\Script\5_Shop\GachaEff.cs" />
      <Compile Include="Assets\Script\5_Shop\ShopProc.cs" />
      <Compile Include="Assets\Script\6_ScoreAttack\ResultProc.cs" />
