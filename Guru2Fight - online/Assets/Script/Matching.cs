@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -8,21 +10,41 @@ public class Matching : MonoBehaviourPunCallbacks
 {
     public static int PlayerCount = 0;
     public static bool MatchEnd;
-    public GameObject CreateInstance;
+
+    public static int CliantChack = 1;
+    public static bool MasterCliant;
+
+    private GameObject CreateInstance;
     public int testNo;
 
-    Vector3 v;
+    [SerializeField]
+    private InputField playerName;
+
+    int SetRaderColorNo;
+
+    Vector3 v = Vector3.zero;           //Position.
+    Vector3 rr;
+    Quaternion r;                       //Rotation.
+
+    GetUserName getUserName;
+    CharaStateProc charaStateProc;
+    CharaCustom charaCustom;
+
 
     private void Start()
     {
         //PhotnServerSettingsに設定した内容を使ってマスターサーバーへ接続をする.
         PhotonNetwork.ConnectUsingSettings();
 
+        //部屋に残っていると二周目ができないため退室.
         PhotonNetwork.LeaveRoom(true);
-        Debug.Log("抜けました");
+        Debug.Log("前の部屋を抜けました");
 
         //参加プレイヤー数の初期化.
         PlayerCount = 0;
+
+        //モデル参照文字列用.
+        CliantChack = 1;
 
         //マッチング処理の終了フラグ.
         MatchEnd = false;
@@ -32,12 +54,9 @@ public class Matching : MonoBehaviourPunCallbacks
     {
         //ランダムなルームに参加する.
         PhotonNetwork.JoinRandomRoom();
-
-        //"room"という名前のルームに参加する（ルームがなければ作成してから参加する）.
-        //PhotonNetwork.JoinOrCreateRoom("room", new RoomOptions(), TypedLobby.Default);
     }
 
-    // ランダムで参加できるルームが存在しないなら、新規でルームを作成する
+    // ランダムで参加できるルームが存在しないなら、新規でルームを作成する.
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         // ルームの参加人数を2人に設定する
@@ -48,16 +67,60 @@ public class Matching : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        if(PlayerCount == 0)
+        getUserName = this.GetComponent<GetUserName>();
+
+        playerName.text = getUserName.SetName;
+        ButtonProc.BattleType = 3;
+
+        //　InputFieldに入力した名前を設定
+        if (playerName.text != "")
         {
-            v = new Vector3(Random.Range(-3f, 3f), 0f,5f);
+            PhotonNetwork.NickName = playerName.text;
+        }
+        else
+        {
+            PhotonNetwork.NickName = "DefaultPlayer";
         }
 
-        if (PlayerCount == 1)
+        if (PhotonNetwork.IsMasterClient)
         {
-            v = new Vector3(Random.Range(-3f, 3f), 0f, -5f);
+            MasterCliant = true;
+            v = new Vector3(2f, 1.02f, -12f);
+            rr = new Vector3(0f, 0f, 0f);
+            SetRaderColorNo = 1;
         }
-        ButtonProc.BattleType = 3;
-        PhotonNetwork.Instantiate(this.CreateInstance.name, v, Quaternion.identity);
+        else
+        {
+            MasterCliant = false;
+            v = new Vector3(2f, 1.02f, 9.5f);
+            rr = new Vector3(0f, 180f, 0f);
+            SetRaderColorNo = 2;
+        }
+
+        r = Quaternion.Euler(rr);
+
+        CreateInstance = PhotonNetwork.Instantiate("Player", v, r);
+
+        CreateInstance.GetPhotonView().RPC("SetMakerColor", RpcTarget.AllBuffered, SetRaderColorNo);
+
+        CliantChack = 0;
+        CreateInstance.GetPhotonView().RPC("SetName", RpcTarget.AllBuffered, PhotonNetwork.NickName);
+
+        charaCustom = CreateInstance.GetComponent<CharaCustom>();
+        charaCustom.SendWepon = CharaCustom.WeponNo;
+        CreateInstance.GetPhotonView().RPC("SetChangeWepon", RpcTarget.AllBuffered, charaCustom.SendWepon);
+
+        charaCustom.SendColor = CharaCustom.ColorNo;
+        CreateInstance.GetPhotonView().RPC("SetChangeColor", RpcTarget.AllBuffered, charaCustom.SendColor);
+
+        charaCustom.SendSkill = CharaCustom.SkillNo;
+        CreateInstance.GetPhotonView().RPC("SetChangeSkill", RpcTarget.AllBuffered, charaCustom.SendSkill);
+
+        //自分のやつは表示させない.
+        charaStateProc = CreateInstance.GetComponent<CharaStateProc>();
+        charaStateProc.OnlineHP.color = new Color(0f, 1f, 0f, 0f);
+        charaStateProc.OnlineHPBack.color = new Color(0f, 1f, 0f, 0f);
+        CreateInstance.GetPhotonView().RPC("SetHP", RpcTarget.AllBuffered, charaStateProc.HitPoint.fillAmount);
+
     }
 }

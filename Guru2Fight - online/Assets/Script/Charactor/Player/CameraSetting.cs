@@ -15,6 +15,7 @@ public class CameraSetting : MonoBehaviour
     public static bool CameraT_Check;
     //local
     float x;
+    bool test;
     Vector3 targetPos;
 
     //移動するオブジェクトに追従し、回転するカメラの設定.
@@ -25,13 +26,22 @@ public class CameraSetting : MonoBehaviour
 
     void Update()
     {
-        if (targetObj == null)
+        if(GetObjectName == "" && Matching.CliantChack == 0)
+        {
+            GetObjectName = "Player(Clone)";
+        }
+        else if(GetObjectName != "")
+        {
+            Matching.CliantChack = 0;
+        }
+
+        if (targetObj == null && Matching.CliantChack == 0)
         {
             targetObj = GameObject.Find(GetObjectName);
             targetPos = targetObj.transform.position;
             Debug.Log("CameraSetting：取得しました！");
-        }
 
+        }
         x = joystick.Horizontal;
         // targetの移動量分、自分（カメラ）も移動.
         Camera.main.transform.position += targetObj.transform.position - targetPos;
@@ -51,5 +61,6 @@ public class CameraSetting : MonoBehaviour
         {
             CameraT_Check = false;
         }
+
     }
 }

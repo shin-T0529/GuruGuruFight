@@ -32,8 +32,8 @@ RPCを実行する対象の指定について
 RPCを実行する対象：送信者自身の処理：他プレイヤーの処理：途中参加者の処理
 ①RpcTarget.All       即座に実行       通信を介して実行    実行されない
 ②.Others             実行されない      同上                  同上
-③.AllBufered         即座に実行                           実行される
-④.Othersbuffered     実行されない                          同上
+③.AllBuffered         即座に実行                           実行される
+④.OthersBuffered     実行されない                          同上
 ⑤.AllViaServer       通信を介して実行                    実行されない
 ⑥.AllBufferedViaServer  同上                               実行される
 

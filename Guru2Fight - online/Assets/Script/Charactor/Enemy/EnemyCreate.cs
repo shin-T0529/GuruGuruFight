@@ -76,6 +76,8 @@ public class EnemyCreate : MonoBehaviour
                     state.Enemy_HP = CreEnemy_HP;                //追尾用.
                     charaState.HitPoint = inHPBar.HitPoint;      //減少用.
 
+                    CreEnemy_HP.transform.rotation = Camera.main.transform.rotation;
+
                     //各種制御関数をリセットする.
                     EnemyCnt++;
                     CreateDelay = 0;
@@ -103,4 +105,9 @@ public class EnemyCreate : MonoBehaviour
                 break;
         }
     }
+
+    void LateUpdate()
+    {
+    }
+
 }

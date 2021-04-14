@@ -40,7 +40,12 @@ public class JoyStick : MonoBehaviourPunCallbacks, IDragHandler, IPointerUpHandl
 
     void Update()
     {
-        if(Chara == null)
+        if (GetObjectName == "" && Matching.CliantChack == 0)
+        {
+            GetObjectName = "Player(Clone)";
+        }
+
+        if (Chara == null)
         {
             Chara = GameObject.Find(GetObjectName);
             MoveChara = Chara.transform;

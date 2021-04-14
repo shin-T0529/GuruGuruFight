@@ -48,6 +48,7 @@ public class ReadData : MonoBehaviour
                     ReadList.AddRange(values);
                 }
                 System.Console.ReadKey();
+                sr.Close();
             }
         }
     }
@@ -65,7 +66,9 @@ public class ReadData : MonoBehaviour
             "Multi Win",Record.RecordWin_M,
             "TimeAttack MostRecord",Record.RecordTime,
             "ScoreAttack MostRecord",Record.RecordScore,
-            "have G-Coins",GCoinProc.PossGCoin.ToString()
+            "have G-Coins",GCoinProc.PossGCoin.ToString(),
+            "UserName",Record.UserNameInput,
+            "Rating",Record.Rating
          };
 
         using (var fs = new StreamWriter(combinedPath))

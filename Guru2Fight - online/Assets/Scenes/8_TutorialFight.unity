@@ -181,8 +181,11 @@ MonoBehaviour:
   SkillCheck: 0
   GuradSkill: 0
   BulletSkill: 0
+  MultiDamageChaeck: 0
   HitPoint: {fileID: 0}
   SkillPoint: {fileID: 0}
+  OnlineHP: {fileID: 0}
+  OnlineHPBack: {fileID: 0}
 --- !u!114 &54018508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1676,6 +1679,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &572893212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 572893213}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &572893213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572893212}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 642.51355, y: 358.82, z: 1.6871986}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &575843062 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8934185330536174277, guid: 703aa5e48dc60d4438b6ebc198cfb4be,
@@ -2130,8 +2163,11 @@ MonoBehaviour:
   SkillCheck: 0
   GuradSkill: 0
   BulletSkill: 0
+  MultiDamageChaeck: 0
   HitPoint: {fileID: 0}
   SkillPoint: {fileID: 0}
+  OnlineHP: {fileID: 0}
+  OnlineHPBack: {fileID: 0}
 --- !u!114 &660135362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2432,8 +2468,11 @@ MonoBehaviour:
   SkillCheck: 0
   GuradSkill: 0
   BulletSkill: 0
+  MultiDamageChaeck: 0
   HitPoint: {fileID: 0}
   SkillPoint: {fileID: 0}
+  OnlineHP: {fileID: 0}
+  OnlineHPBack: {fileID: 0}
 --- !u!65 &710160014
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3228,7 +3267,7 @@ PrefabInstance:
     - target: {fileID: 5109091179362648253, guid: 571688c93242f9e49b6a97b3b329681b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.034000397
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5109091179362648253, guid: 571688c93242f9e49b6a97b3b329681b,
         type: 3}
@@ -3279,6 +3318,11 @@ PrefabInstance:
         type: 3}
       propertyPath: sceneViewId
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6014628139474645634, guid: 571688c93242f9e49b6a97b3b329681b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6534866406813902931, guid: 571688c93242f9e49b6a97b3b329681b,
         type: 3}
@@ -3627,6 +3671,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3693,12 +3738,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.29807705, y: -0, z: -0, w: 0.95454186}
-  m_LocalPosition: {x: 2.5, y: 8.9, z: -20.98}
+  m_LocalPosition: {x: -0.92, y: 8.9, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 34.684002, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b60f354c78c07e43b111a2517294793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 963194225}
+  TargetObject: {fileID: 0}
+  GetObjectName: Player
 --- !u!1 &987731343
 GameObject:
   m_ObjectHideFlags: 0
@@ -5220,6 +5280,11 @@ PrefabInstance:
       propertyPath: FadeSpeed
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 4833968177666551694, guid: 02cc411abbcd1a546aa5fc377f403db6,
+        type: 3}
+      propertyPath: matchTextObj
+      value: 
+      objectReference: {fileID: 572893212}
     - target: {fileID: 4833968177666551695, guid: 02cc411abbcd1a546aa5fc377f403db6,
         type: 3}
       propertyPath: m_LocalPosition.x

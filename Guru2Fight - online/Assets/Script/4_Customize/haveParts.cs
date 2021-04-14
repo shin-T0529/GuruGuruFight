@@ -24,7 +24,7 @@ public class haveParts : MonoBehaviour
         customPartRead.GachaDataRead();
 
         //所持状態に合わせて当てはめる.
-        for (int i = 1; i < 13; i++)
+        for (int i = 1; i < 14; i++)
         {
             GachaGacha = int.Parse(customPartRead.GachaList[AddCnt]);
             switch (i)

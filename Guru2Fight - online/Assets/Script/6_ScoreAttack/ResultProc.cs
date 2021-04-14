@@ -28,20 +28,28 @@ public class ResultProc : MonoBehaviourPunCallbacks
     private Animation UIAnim;
 
     //pub sta.
-
+    public static bool WritingData;
     //Local.
     int PlayCount,WinCount;                         //ソロ記録用.
+    bool ResultCntCheck;
     CharaStateProc charaState;
     ReadData readData;
 
     void Start()
     {
+        ResultCntCheck = false;
+        WritingData = false;
         PlayCount = int.Parse(Record.RecordPlay);
         WinCount = int.Parse(Record.RecordWin);
     }
 
     void Update()
     {
+        if (GetObjectName == "" && Matching.CliantChack == 0)
+        {
+            GetObjectName = "Player(Clone)";
+        }
+
         if (PlayerObject == null)
         {
             PlayerObject = GameObject.Find(GetObjectName);
@@ -64,8 +72,13 @@ public class ResultProc : MonoBehaviourPunCallbacks
             //マルチプレイをしている.
             MultiBattleModeResult(ref MultiPlay.M_GameEnd);
         }
-        //MultiBattleModeResult(ref MultiPlay.M_GameEnd);
 
+        if(WritingData == true)
+        {
+            readData = GetComponent<ReadData>();
+            readData.WriteRecordData(ReadData.GetInternalStoragePath());
+            WritingData = false;
+        }
     }
 
     /*スコアアタック管理用*/
@@ -165,8 +178,24 @@ public class ResultProc : MonoBehaviourPunCallbacks
             UIAnim.clip = WindowAnim_W;
             UIAnim.Play();
             End = false;
+            int CntM = int.Parse(Record.RecordPlay_M);
+            int CntWinM = int.Parse(Record.RecordWin_M);
+
+            if (ResultCntCheck == false)
+            {
+                CntM++;
+                if (charaState.Dead != true)
+                {
+                    CntWinM++;
+                }
+                Record.RecordPlay_M = CntM.ToString();
+                Record.RecordWin_M = CntWinM.ToString();
+                ResultCntCheck = true;
+            }
+            readData.WriteRecordData(ReadData.GetInternalStoragePath());
         }
     }
+
     /*ウィンドウアニメ操作*/
     void WinAnimEnd()
     {

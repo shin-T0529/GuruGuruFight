@@ -11,9 +11,9 @@ public class Record : MonoBehaviour
     public Text BattleWin;          //勝利数・クリア回数記録.
     public Text TimeRecordText;     //タイムアタックモード最速記録.
     public Text ScoreRecordText;    //スコアアタックモード最高記録.
-    public Text haveGCoinText;          //所持金.
-
-
+    public Text haveGCoinText;      //所持金.
+    public Text UserNameText;
+    public Text RatingText;             //勝利時上昇、敗北時下降(intで制御).
     //pri.
     //初期化記録用リスト.
     //記録内容の項目.
@@ -26,11 +26,16 @@ public class Record : MonoBehaviour
     public static string RecordPlay, RecordWin;
     public static string RecordPlay_M, RecordWin_M;
     public static string RecordTime, RecordScore;    //各種記録保持用.
+    public static string UserNameInput;             //オンライン対戦用の名前設定.
+    public static string Rating;                    //強さ指標(とりあえず表示、勝利に意味を持たせる).
+    public static bool NameChange;
     //Local.
     ReadData readData;
 
     void Start()
     {
+        NameChange = false;
+
         readData = this.GetComponent<ReadData>();
         readData.Read_Data(ReadData.GetInternalStoragePath(), "/Record.csv");
 
@@ -42,13 +47,13 @@ public class Record : MonoBehaviour
 
             //初期記録の内容のセット.
             RecordNameList = new List<string>()
-            { "Solo Play", "Multi Play", "Solo win","Multi win","TimeAttack MostRecord","ScoreAttack MostRecord","have G-Coins" };
-            RecordCntList = new List<string>(){ "0", "0", "0","0","1.00","0","500" };
+            { "Solo Play", "Multi Play", "Solo win","Multi win","TimeAttack MostRecord","ScoreAttack MostRecord","have G-Coins","UserName","Rating" };
+            RecordCntList = new List<string>(){ "0", "0", "0","0","1.00","0","50000","","100" };
 
             using (var fs = new StreamWriter(combinedPath))
             {
                 //fs.WriteLine("0\n0\n0\n0\n1.0\n0\n");
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     //項目内容と記録する初期数を連結する.
                     fs.WriteLine(RecordNameList[i] + "," + RecordCntList[i]);
@@ -65,6 +70,7 @@ public class Record : MonoBehaviour
                     readData.ReadList.AddRange(values);
                 }
                 System.Console.ReadKey();
+                sr.Close();
             }
         }
 
@@ -80,18 +86,27 @@ public class Record : MonoBehaviour
             RecordTime = readData.ReadList[9];
             RecordScore = readData.ReadList[11];
             GCoinProc.PossGCoin = int.Parse(readData.ReadList[13]);
-
+            UserNameText.text = "Name: " + readData.ReadList[15];
+            UserNameInput = readData.ReadList[15];
+            Rating = readData.ReadList[17];
             ReadData.ReadCheck = true;
         }
-
+        UserNameText.text = "Name: " + UserNameInput;
     }
 
     void Update()
     {
-        BattleCount.text = "出撃回数 ：" + RecordPlay;// + "\n　マルチ：" + RecordPlay_M;
-        BattleWin.text = "勝利回数 ：" + RecordWin;// + "\n　マルチ：" + RecordWin_M;
-        TimeRecordText.text = "タイムアタックモード最速タイム：" +  RecordTime;
-        ScoreRecordText.text = "スコアアタックモード最高スコア：" +  RecordScore + " 点";
+        BattleCount.text = "ソロ出撃回数 ：" + RecordPlay + "　マルチ出撃回数：" + RecordPlay_M;
+        BattleWin.text = "ソロ勝利回数 ：" + RecordWin + "　マルチ勝利回数：" + RecordWin_M;
+        TimeRecordText.text = "タイムアタック 最速タイム：" +  RecordTime;
+        ScoreRecordText.text = "スコアアタック 最高スコア：" +  RecordScore + " 点";
         haveGCoinText.text = "所持G-Coin : " + GCoinProc.PossGCoin.ToString();
+        RatingText.text = "Rating : " + int.Parse(Rating);
+
+        if (NameChange == true)
+        {
+            UserNameText.text = "Name: " + UserNameInput;
+            NameChange = false;
+        }
     }
 }

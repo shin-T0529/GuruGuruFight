@@ -17,6 +17,7 @@ TagManager:
   - MB_Result
   - MB_Vic
   - MB_Lose
+  - NoAttack
   layers:
   - Default
   - TransparentFX

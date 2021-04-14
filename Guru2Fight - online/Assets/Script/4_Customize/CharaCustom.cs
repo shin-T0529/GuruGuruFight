@@ -7,6 +7,8 @@ public class CharaCustom : MonoBehaviour
     //pub.
     public GameObject test;
     public GameObject test2;
+
+    public int SendWepon, SendColor, SendSkill;
     //pub sta.
     public static int WeponNo;          //攻撃用ウェポン.
     public static int ColorNo;          //キャラクターの色.
@@ -31,13 +33,9 @@ public class CharaCustom : MonoBehaviour
             WeponNo = int.Parse(readData.ReadList[0]);
             ColorNo = int.Parse(readData.ReadList[1]);
             SkillNo = int.Parse(readData.ReadList[2]);
+
             ReadFirst = true;
         }
-
-        //排出回数に応じて武器の威力強化を行う(X:  Y:3 Z:5).
-        Readdata = test2.GetComponent<ReadData>();
-        Readdata.Read_Data(ReadData.GetInternalStoragePath(), "/GachaData.csv");
-
         WriteData = false;
     }
 
@@ -49,7 +47,14 @@ public class CharaCustom : MonoBehaviour
     public void WeponList(GameObject Wepon1,GameObject Wepon2,
         GameObject Wepon3, int SetWeponNo)
     {
-        switch (WeponNo)
+        //排出回数に応じて武器の威力強化を行う(X:  Y:3 Z:5).
+        if(Readdata == null)
+        {
+            Readdata = test2.GetComponent<ReadData>();
+            Readdata.Read_Data(ReadData.GetInternalStoragePath(), "/GachaData.csv");
+        }
+
+        switch (SetWeponNo)
         {
             case 0: //デフォルト：ぐるぐるパンチ(X軸).
                 Wepon1.SetActive(true);

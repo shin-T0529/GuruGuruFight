@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class MultiPlay : MonoBehaviour
 {
     //pub.
-    public Text MultiStatus;
 
     //pri.
 
@@ -16,19 +15,11 @@ public class MultiPlay : MonoBehaviour
 
     void Start()
     {
-        
+        M_GameEnd = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(M_GameEnd == false)
-        {
-            MultiStatus.text = "対戦中... ";
-        }
-        else
-        {
-            MultiStatus.text = "対戦終了！！ ";
-        }
     }
 }

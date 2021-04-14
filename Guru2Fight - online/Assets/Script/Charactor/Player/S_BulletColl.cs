@@ -6,7 +6,6 @@ public class S_BulletColl : MonoBehaviour
 {
     void Start()
     {
-        
     }
 
     void Update()

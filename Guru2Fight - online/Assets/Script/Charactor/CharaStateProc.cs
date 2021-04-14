@@ -15,6 +15,7 @@ public class CharaStateProc : MonoBehaviourPunCallbacks
     public int DamageCnt;
     public float MaxDamage;                     //受けるダメージ.
     public float UseSkillPoint,CheckSkillPoint;
+    public static float MultiDamage;
     public bool Dead,DeadWait;                  //死亡フラグと死亡猶予ﾌﾗｸﾞ.
     public bool EnemySet = false;               //アタッチ先で個々に切り替える.
     public bool AtkHit;
@@ -22,14 +23,16 @@ public class CharaStateProc : MonoBehaviourPunCallbacks
     public bool SkillCheck;                     //スキル使用時に付随する追加効果の処理を行う用.
     public bool GuradSkill;
     public bool BulletSkill;
+    public bool MultiDamageChaeck;              //相手画面に表示するHP同期用.
     public Image HitPoint;                      //HP減少処理用.
     public Image SkillPoint;                      //HP減少処理用.
-
+    public Image OnlineHP,OnlineHPBack;
 
     //pri.
     private float DamageSpeed = 0.05f;         //HP減少速度.
     private float currentDamage;                //内部計算用.
 
+    private GameObject ShpBullet_On;
 
     private AudioSource SESource;
 
@@ -37,6 +40,7 @@ public class CharaStateProc : MonoBehaviourPunCallbacks
     //Local.
     int SkillGauge;                             //スキルゲージ回復用.
     int GuradSkillTime, BulletSkillTime;         //スキルの効果時間適応用.
+    float HealSkillGauge;
     float lx, rx;                               //腕の回転値格納用.
     float AddPower;
     Vector3 Pos, Rotate;                        //WorldC_HPの計算用.
@@ -50,11 +54,14 @@ public class CharaStateProc : MonoBehaviourPunCallbacks
         rx = lx = 0;
         AddPower = 1000.0f;
         currentDamage = 0.0f;
+        MultiDamage = 1f;
+        HealSkillGauge = 0.01f;
         UseSkillPoint = CheckSkillPoint = 0.0f;
         Dead = false;
         DeadWait = false;
         AtkHit = false;
         SkillCheck = false;
+        MultiDamageChaeck = false;
         SESource = GetComponent<AudioSource>();
     }
 
@@ -159,8 +166,15 @@ public class CharaStateProc : MonoBehaviourPunCallbacks
                 MaxDamage = 0.0f;
                 Hit = false;
                 AtkHitSE = false;
+                //MultiDamageChaeck = true;
             }
         }
+
+        if (ButtonProc.BattleType == 3)
+        {
+            photonView.RPC(nameof(RPCChangeImage), RpcTarget.All, HitPoint.fillAmount);
+        }
+
     }
 
     public void SkillProc(ref bool Skill,int SkillNo,GameObject SetPlayer,GameObject CreateObj)
@@ -195,13 +209,17 @@ public class CharaStateProc : MonoBehaviourPunCallbacks
                     if (SkillPoint.fillAmount > 0.81f && BulletSkill == false)
                     {
                         CrePos = SetPlayer.transform.position;
-                        GameObject ShpBullet = (GameObject)Instantiate(CreateObj, CrePos, Quaternion.identity);
-                        BuAdd = ShpBullet.GetComponent<Rigidbody>();
-                        AddPower = 700.0f;
-                        BuAdd.AddForce(transform.forward * AddPower);      //戻す方向,力の加え方.
-                        ShpBullet.SetActive(true);
-                        SkillPoint.fillAmount -= 0.81f;
-                        BulletSkill = true;
+                        if(ButtonProc.BattleType != 3)
+                        {
+                            GameObject ShpBullet_Off = (GameObject)Instantiate(CreateObj, CrePos, Quaternion.identity);
+                            BulletCreate(ShpBullet_Off);
+                        }
+                        else
+                        {
+                            ShpBullet_On = PhotonNetwork.Instantiate("S_Bullet", CrePos, Quaternion.identity);
+                            BulletCreate(ShpBullet_On);
+                        }
+
                     }
                     break;
 
@@ -239,11 +257,22 @@ public class CharaStateProc : MonoBehaviourPunCallbacks
         }
         //スキルゲージの回復処理.
         SkillGauge++;
-        if(10 < SkillGauge)
+        if(15 < SkillGauge)
         {
-            SkillPoint.fillAmount += 0.01f;
+            SkillPoint.fillAmount += HealSkillGauge;
             SkillGauge = 0;
         }
+    }
+
+    //スキル用の弾生成.
+    void BulletCreate(GameObject bullet)
+    {
+        BuAdd = bullet.GetComponent<Rigidbody>();
+        AddPower = 700.0f;
+        BuAdd.AddForce(transform.forward * AddPower);      //戻す方向,力の加え方.
+        bullet.SetActive(true);
+        SkillPoint.fillAmount -= 0.81f;
+        BulletSkill = true;
     }
 
     //死亡時のアニメーション再生.
@@ -328,7 +357,16 @@ public class CharaStateProc : MonoBehaviourPunCallbacks
             worldAngleHP.y = worldAngleChara.y;
             worldAngleHP.z = worldAngleChara.z;
             //ワールド座標に適応.
-            RoteHP.eulerAngles = worldAngleHP; 
-        }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+            RoteHP.eulerAngles = worldAngleHP;
+
+            SetHP.transform.rotation = Camera.main.transform.rotation;
+        }
     }
+
+    [PunRPC]
+    void RPCChangeImage(float Amount)
+    {
+        OnlineHP.fillAmount = Amount;
+    }
+
 }

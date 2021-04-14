@@ -21,10 +21,13 @@ public class PlayerState : MonoBehaviourPunCallbacks
 
     public GameObject Empty;                  //空のオブジェクト.
 
-    [SerializeField] public GameObject M_ResultObject;         //ここで処理が都合がいい.
-    [SerializeField] public GameObject M_Vic,M_Lose,M_Return;  //同上.
-
-    public Image HPBar;
+    [SerializeField]
+    public GameObject M_ResultObject;         //ここで処理が都合がいい.
+    [SerializeField]
+    public GameObject M_Vic,M_Lose,M_Return;  //同上.
+    [SerializeField]
+    public GameObject M_Rating;         //ここで処理が都合がいい.
+    public Text M_Ratingtext;
     public AnimationClip DeadAnim;
 
     public bool Guru2Attack;                 //通常攻撃の管理フラグ.
@@ -32,15 +35,20 @@ public class PlayerState : MonoBehaviourPunCallbacks
     public bool UseSkill;
 
     //pri.
+    private GameObject LArm, RArm;          //表示されている腕を取得.
     private Animation PlayerAnim;
     [SerializeField] private GameObject ShotPos;
 
     //pub sta.
     public static bool MultiWLCheck;
-
+    public static int SetWepon, SetColor,SetSkill;
     //Local.
     int ResultCnt;
+    int c_Wepon, c_Color, c_Skill;
+
     bool HealCheck;
+    string LArmName = "L_Arms";
+    string RArmName = "R_Arms";
     SEMusic seMusic;
     CharaStateProc charaState;
     CharaCustom charaCustom;
@@ -52,6 +60,7 @@ public class PlayerState : MonoBehaviourPunCallbacks
         HealCheck = false;
         UseSkill = false;
         Guru2Attack = false;
+
         charaState = this.GetComponent<CharaStateProc>();   //スクリプトの取得.
         seMusic = SetPlayer.GetComponent<SEMusic>();   //スクリプトの取得.
         charaCustom = this.GetComponent<CharaCustom>();   //スクリプトの取得.
@@ -69,23 +78,55 @@ public class PlayerState : MonoBehaviourPunCallbacks
             M_Vic = M_ResultObject.transform.Find("m_Victory").gameObject;
             M_Lose = M_ResultObject.transform.Find("m_Lose").gameObject;
             M_Return = M_ResultObject.transform.Find("h_Return").gameObject;
-
+            M_Rating = M_ResultObject.transform.Find("m_Rating").gameObject;
+            M_Ratingtext = M_ResultObject.transform.Find("m_Rating").gameObject.GetComponent<Text>();
             M_Vic.SetActive(false);
             M_Lose.SetActive(false);
             M_Return.SetActive(false);
+            M_Rating.SetActive(false);
         }
 
         //すべての初期化が終わってからプレイヤー数のカウントを行う.
         photonView.RPC(nameof(JoinPlayerCount), RpcTarget.All);
+
+        test = ButtonProc.BattleType;       //ここ変える.
+        //カスタムデータの適応を行う.
+        if (test != 3)
+        {
+            charaCustom.WeponList(Wepon1, Wepon2, Wepon3, CharaCustom.WeponNo);
+            charaCustom.ColorList(SetPlayer, CharaCustom.ColorNo);
+            charaCustom.SkillList(SetPlayer, CharaCustom.SkillNo, ref charaState.UseSkillPoint);
+        }
+        else
+        {
+            charaCustom.WeponList(Wepon1, Wepon2, Wepon3, c_Wepon);
+            charaCustom.ColorList(SetPlayer, c_Color);
+            charaCustom.SkillList(SetPlayer, c_Skill, ref charaState.UseSkillPoint);
+        }
     }
 
     void Update()
     {
-        test = ButtonProc.BattleType;
-        //カスタムデータの適応を行う.
-        charaCustom.WeponList(Wepon1, Wepon2, Wepon3, CharaCustom.WeponNo);
-        charaCustom.ColorList(SetPlayer, CharaCustom.ColorNo);
-        charaCustom.SkillList(SetPlayer, CharaCustom.SkillNo, ref charaState.UseSkillPoint);
+        if (test != 3)
+        {
+            SetWepon = CharaCustom.WeponNo;
+            SetColor = CharaCustom.ColorNo;
+
+            charaCustom.WeponList(Wepon1, Wepon2, Wepon3, CharaCustom.WeponNo);
+            charaCustom.ColorList(SetPlayer, CharaCustom.ColorNo);
+            charaCustom.SkillList(SetPlayer, CharaCustom.SkillNo, ref charaState.UseSkillPoint);
+            SetUpPlayerWepon(CharaCustom.WeponNo);
+        }
+        else
+        {
+            SetWepon = c_Wepon;
+            SetColor = c_Color;
+
+            charaCustom.WeponList(Wepon1, Wepon2, Wepon3, c_Wepon);
+            charaCustom.ColorList(SetPlayer, c_Color);
+            charaCustom.SkillList(SetPlayer, c_Skill, ref charaState.UseSkillPoint);
+            SetUpPlayerWepon(c_Wepon);
+        }
 
         if (photonView.IsMine)
         {
@@ -99,10 +140,11 @@ public class PlayerState : MonoBehaviourPunCallbacks
             //ノックバック.
             charaState.CharaNockBack(ref charaState.DamageCnt);
 
+            //当たり判定調整セット用.
+            //ArmsTag();
 
             //死亡アニメーション処理.
             charaState.CharaDeadAnim(PlayerAnim, DeadAnim);
-            SetUpPlayerWepon(CharaCustom.WeponNo);
 
             WLCheck();
         }
@@ -159,10 +201,6 @@ public class PlayerState : MonoBehaviourPunCallbacks
     //アニメーション再生終了時.
     void Dead()
     {
-        //当分はマルチ開発のため.
-        //ButtonProc.BattleType = 3;
-        //photonView.RPC(nameof(DebugNoChange), RpcTarget.All);
-
         charaState.CharaDead(charaState.Dead, SetPlayer, Empty);
 
         //モードに合わせた終了フラグを立てる.
@@ -188,11 +226,15 @@ public class PlayerState : MonoBehaviourPunCallbacks
         {
 
             photonView.RPC(nameof(SetResultCheck), RpcTarget.All);
+            int rate = int.Parse(Record.Rating);
+            M_Rating.SetActive(true);
             if (charaState.Dead == true)
             {
                 //勝利敗北テキスト出す.
                 Debug.Log("貴方の負けです。");
                 M_Lose.SetActive(true);
+                rate -= 5;
+                Record.Rating = rate.ToString();
                 ResultCnt++;
             }
             else
@@ -200,11 +242,84 @@ public class PlayerState : MonoBehaviourPunCallbacks
                 //勝利テキスト出す.
                 Debug.Log("貴方の勝ちです。");
                 M_Vic.SetActive(true);
+                rate += 10;
+                Record.Rating = rate.ToString();
                 ResultCnt++;
             }
+            M_Ratingtext.text = "Your Rating : " + rate.ToString();
             M_Return.SetActive(true);
+            ResultProc.WritingData = true;
         }
     }
+
+    void ArmsTag()
+    {
+        if (ButtonProc.BattleType != 3)
+        {
+            OffSetAttackTag(LArm, LArmName);
+            OffSetAttackTag(RArm, RArmName);
+        }
+        else
+        {
+            photonView.RPC(nameof(OnSetAttackTag), RpcTarget.AllViaServer, LArm, LArmName);
+            photonView.RPC(nameof(OnSetAttackTag), RpcTarget.AllViaServer, RArm, RArmName);
+        }
+    }
+
+    void OffSetAttackTag(GameObject gameObject,string FindName)
+    {
+        if (gameObject == null)
+        {
+            gameObject = GameObject.Find(FindName);
+        }
+
+        if (Guru2Attack != true)
+        {
+            gameObject.tag = "NoAttack";
+        }
+        else
+        {
+            gameObject.tag = "Attack";
+        }
+    }
+
+    //オンラインのタグ判定書き換え用.
+    [PunRPC]
+    void OnSetAttackTag(GameObject gameObject,string Name)
+    {
+        if (gameObject == null)
+        {
+            gameObject = GameObject.Find(Name);
+        }
+        if (Guru2Attack != true)
+        {
+            gameObject.tag = "NoAttack";
+        }
+        else
+        {
+            gameObject.tag = "Attack";
+        }
+    }
+
+    [PunRPC]
+    void ROnSetAttackTag()
+    {
+        if (RArm == null)
+        {
+            RArm = GameObject.Find(RArmName);
+        }
+        if (Guru2Attack != true)
+        {
+            RArm.tag = "NoAttack";
+        }
+        else
+        {
+            RArm.tag = "Attack";
+        }
+    }
+
+
+
 
     void OnCollisionEnter(Collision collision)
     {
@@ -235,6 +350,23 @@ public class PlayerState : MonoBehaviourPunCallbacks
                 { charaState.MaxDamage = 0.1f; }
                 charaState.DamageCnt++;
             }
+
+        }
+    }
+
+    void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.tag == "SkillBullet")
+        {//敵に攻撃が当たった時.
+            Debug.Log("スキル！！");
+            charaState.AtkHit = true;
+            charaState.AtkHitSE = true;
+            //防御アップのスキル使用時.
+            if (charaState.GuradSkill == true)
+            { charaState.MaxDamage = 0.2f; }
+            else
+            { charaState.MaxDamage = 0.4f; }
+            charaState.DamageCnt++;
         }
     }
 
@@ -254,12 +386,10 @@ public class PlayerState : MonoBehaviourPunCallbacks
         MultiWLCheck = true;
     }
 
-
     //参加プレイヤー数の加算.
     [PunRPC]
     void JoinPlayerCount()
     {
-        //charaState.Dead = false;
         Matching.PlayerCount++;
     }
 
@@ -269,18 +399,23 @@ public class PlayerState : MonoBehaviourPunCallbacks
         Matching.MatchEnd = true;
     }
 
-
-    //デバッグ用.
+    //カスタムデータ設定用.
     [PunRPC]
-    void SetChangeColor()
+    void SetChangeWepon(int SetWepon)
     {
-        if (CharaCustom.ColorNo < 9)
-        {
-            CharaCustom.ColorNo++;
-        }
-        else
-        {
-            CharaCustom.ColorNo = 0;
-        }
+        c_Wepon = SetWepon;
     }
+
+    [PunRPC]
+    void SetChangeColor(int SetColor)
+    {
+        c_Color = SetColor;
+    }
+
+    [PunRPC]
+    void SetChangeSkill(int SetSkill)
+    {
+        c_Skill = SetSkill;
+    }
+
 }

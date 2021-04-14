@@ -9,17 +9,19 @@ using Photon.Realtime;
 public class FadeProc : MonoBehaviourPunCallbacks
 {
     //pub.
-    public Image FadeImage;              //操作するフェード用暗幕.
-    public GameObject FadeCanvas;   //ON/OFFを切り替える.
-    public float FadeSpeed = 0.01f;
+    public Image FadeImage;                             //操作するフェード用暗幕.
+    public GameObject FadeCanvas;                       //ON/OFFを切り替える.
+    public float FadeSpeed = 0.08f;                     //フェードのデフォルト速度、インスペクターから変更可.
+
     //pri.
-    [SerializeField] public GameObject matchTextObj;         //ここで処理が都合がいい.
-    [SerializeField] public Text matchText;         //ここで処理が都合がいい.
+    [SerializeField] public GameObject matchTextObj;    //ここで処理が都合がいい.
+    [SerializeField] public Text matchText;             //ここで処理が都合がいい.
 
     //pub sta.
     public static int FadeJumpScene;
     public static bool BattleStart;
     public static bool FadeControll;
+
     //Local.
     float alfa;                     //A値を操作するための変数.
     bool FadeOnOff;                 //ON(暗→明:true)OFF(明→暗:false).
@@ -67,6 +69,7 @@ public class FadeProc : MonoBehaviourPunCallbacks
             //明→暗.
             else if (Fade == false && FadeOnOff == false)
             {
+                matchTextObj.SetActive(false);
                 FadeCanvas.SetActive(true);
                 FadeImage.GetComponent<Image>().color = new Color(0.0f, 0.0f, 0.0f, alfa);
                 alfa += FadeSpeed;
@@ -93,7 +96,6 @@ public class FadeProc : MonoBehaviourPunCallbacks
             PhotonNetwork.Disconnect();
             Debug.Log("切断してデータも送り申した");
             photonView.RPC(nameof(ResetRooms), RpcTarget.All);
-
         }
     }
 
@@ -102,19 +104,19 @@ public class FadeProc : MonoBehaviourPunCallbacks
         if (Matching.MatchEnd == false)
         {
             MatchWaitCount++;
-            if (MatchWaitCount < 50)
+            if (MatchWaitCount < 30)
             {
                 matchText.text = "マッチングちゅう...";
             }
-            else if (51 < MatchWaitCount && MatchWaitCount < 100)
+            else if (31 < MatchWaitCount && MatchWaitCount < 60)
             {
                 matchText.text = "マッチングちゅう....";
             }
-            else if (101 < MatchWaitCount && MatchWaitCount < 150)
+            else if (61 < MatchWaitCount && MatchWaitCount < 120)
             {
                 matchText.text = "マッチングちゅう.....";
             }
-            else if (151 < MatchWaitCount)
+            else if (121 < MatchWaitCount)
             {
                 MatchWaitCount = 0;
             }

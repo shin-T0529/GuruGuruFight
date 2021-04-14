@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeponState : MonoBehaviour
 {
     //pub.
-    public GameObject Wepon;                        //空.
+    public GameObject Wepon;                       
 
     //pri.
 
@@ -23,6 +23,22 @@ public class WeponState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        charaCustom.ColorList(Wepon, CharaCustom.ColorNo);
+        if(ButtonProc.BattleType != 3)
+        {
+            if (ButtonProc.BattleType == 4)
+            {
+                charaCustom.SendColor = 0;
+            }
+            else
+            {
+                charaCustom.SendColor = CharaCustom.ColorNo;
+            }
+        }
+        else
+        {
+            charaCustom.SendColor = PlayerState.SetColor;
+        }
+
+        charaCustom.ColorList(Wepon, charaCustom.SendColor);
     }
 }

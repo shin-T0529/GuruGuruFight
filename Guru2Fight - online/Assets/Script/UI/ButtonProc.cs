@@ -26,18 +26,18 @@ public class ButtonProc : MonoBehaviour
     //pub sta.
     public static int BattleType;
     public static int AnimSet;
+
     //Local.
+    string ReadFileName = "/Record.csv";
+
     SEMusic seMusic;
+    ReadData readData;
 
     void Start()
     {
         SetCont = 0;
-        BattleType = 0;
-    }
-
-    void Update()
-    {
-        
+        readData = this.GetComponent<ReadData>();
+        readData.Read_Data(ReadData.GetInternalStoragePath(), ReadFileName);
     }
 
     //モード選択前のアニメ再生.
@@ -76,12 +76,14 @@ public class ButtonProc : MonoBehaviour
         seMusic = this.GetComponent<SEMusic>();   //スクリプトの取得.
         seMusic.SEPlay(ref Play, PlaySENo);
     }
+
     //シーン変更用ボタン.
     public void ChangeScene(int Jump)
     {
         FadeProc.FadeJumpScene = Jump;
         FadeProc.FadeControll = true;
     }
+
     //対戦モード選択用.
     public void BattleTypeSet(int Type)
     {
@@ -108,7 +110,6 @@ public class ButtonProc : MonoBehaviour
             default:
                 break;
         }
-
         FadeProc.FadeControll = true;
     }
 
@@ -155,6 +156,23 @@ public class ButtonProc : MonoBehaviour
         }
     }
 
+    //ユーザーネーム入力関連.
+    public void ChangeName()
+    {
+        MainAnimObject.SetActive(true);
+        NextAnimObject2.SetActive(true);
+    }
+
+    public void AddName()
+    {
+        Record.NameChange = true;
+        readData.WriteRecordData(ReadData.GetInternalStoragePath());
+        NextAnimObject1.SetActive(false);
+        NextAnimObject2.SetActive(false);
+        MainAnimObject.SetActive(false);
+    }
+
+
     //ガチャ関連.
     //単発.
     public void OnceGacha(GameObject Window)
@@ -180,6 +198,7 @@ public class ButtonProc : MonoBehaviour
         GachaEff.RollImage = false;
         MainAnimObject.SetActive(false);
     }
+
     //エラーウィンドウ表示アニメ後.
     void MessageAnim()
     {

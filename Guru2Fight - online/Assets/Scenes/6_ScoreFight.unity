@@ -187,8 +187,11 @@ MonoBehaviour:
   SkillCheck: 0
   GuradSkill: 0
   BulletSkill: 0
+  MultiDamageChaeck: 0
   HitPoint: {fileID: 0}
   SkillPoint: {fileID: 0}
+  OnlineHP: {fileID: 0}
+  OnlineHPBack: {fileID: 0}
 --- !u!114 &54018508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -978,8 +981,11 @@ MonoBehaviour:
   SkillCheck: 0
   GuradSkill: 0
   BulletSkill: 0
+  MultiDamageChaeck: 0
   HitPoint: {fileID: 1042654011}
   SkillPoint: {fileID: 0}
+  OnlineHP: {fileID: 0}
+  OnlineHPBack: {fileID: 0}
 --- !u!114 &176052282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1770,6 +1776,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6761803491081906041}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &435884561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 435884562}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &435884562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435884561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 642.51355, y: 358.82, z: 1.6871986}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &465740670
 GameObject:
   m_ObjectHideFlags: 0
@@ -2602,8 +2638,11 @@ MonoBehaviour:
   SkillCheck: 0
   GuradSkill: 0
   BulletSkill: 0
+  MultiDamageChaeck: 0
   HitPoint: {fileID: 0}
   SkillPoint: {fileID: 0}
+  OnlineHP: {fileID: 0}
+  OnlineHPBack: {fileID: 0}
 --- !u!114 &660135362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2910,8 +2949,11 @@ MonoBehaviour:
   SkillCheck: 0
   GuradSkill: 0
   BulletSkill: 0
+  MultiDamageChaeck: 0
   HitPoint: {fileID: 0}
   SkillPoint: {fileID: 0}
+  OnlineHP: {fileID: 0}
+  OnlineHPBack: {fileID: 0}
 --- !u!65 &710160014
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3870,6 +3912,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3942,6 +3985,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 34.684002, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b60f354c78c07e43b111a2517294793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 963194225}
+  TargetObject: {fileID: 0}
+  GetObjectName: Player
 --- !u!1 &987731343
 GameObject:
   m_ObjectHideFlags: 0
@@ -4889,6 +4947,11 @@ PrefabInstance:
       propertyPath: FadeImage
       value: 
       objectReference: {fileID: 200647271}
+    - target: {fileID: 4833968177666551694, guid: 02cc411abbcd1a546aa5fc377f403db6,
+        type: 3}
+      propertyPath: matchTextObj
+      value: 
+      objectReference: {fileID: 435884561}
     - target: {fileID: 4833968177666551695, guid: 02cc411abbcd1a546aa5fc377f403db6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6206,8 +6269,11 @@ MonoBehaviour:
   SkillCheck: 0
   GuradSkill: 0
   BulletSkill: 0
+  MultiDamageChaeck: 0
   HitPoint: {fileID: 1042654011}
   SkillPoint: {fileID: 0}
+  OnlineHP: {fileID: 0}
+  OnlineHPBack: {fileID: 0}
 --- !u!4 &1815509780 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5109091179362648253, guid: 571688c93242f9e49b6a97b3b329681b,
@@ -6801,11 +6867,21 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6014628139474645634, guid: 571688c93242f9e49b6a97b3b329681b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6534866406813902931, guid: 571688c93242f9e49b6a97b3b329681b,
         type: 3}
       propertyPath: sceneViewId
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6815501756524446397, guid: 571688c93242f9e49b6a97b3b329681b,
+        type: 3}
+      propertyPath: test2
+      value: 
+      objectReference: {fileID: 2067441039}
     - target: {fileID: 8877911778164888703, guid: 571688c93242f9e49b6a97b3b329681b,
         type: 3}
       propertyPath: sceneViewId
@@ -6813,6 +6889,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 571688c93242f9e49b6a97b3b329681b, type: 3}
+--- !u!1 &2067441039 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7491955319213686012, guid: 571688c93242f9e49b6a97b3b329681b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2067441038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2071414053
 GameObject:
   m_ObjectHideFlags: 0
