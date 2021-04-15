@@ -81,12 +81,13 @@ public class ShopProc : MonoBehaviour
         switch(CharaCustom.WeponNo)
         {
             case 0:
-                break;
-            case 1:
                 CharaCustom.WeponResultCnt = ResultCnt[3];
                 break;
-            case 2:
+            case 1:
                 CharaCustom.WeponResultCnt = ResultCnt[5];
+                break;
+            case 2:
+                CharaCustom.WeponResultCnt = ResultCnt[7];
                 break;
             default:
                 break;

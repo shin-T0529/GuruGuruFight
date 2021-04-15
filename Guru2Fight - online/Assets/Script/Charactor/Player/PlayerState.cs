@@ -24,9 +24,12 @@ public class PlayerState : MonoBehaviourPunCallbacks
     [SerializeField]
     public GameObject M_ResultObject;         //ここで処理が都合がいい.
     [SerializeField]
-    public GameObject M_Vic,M_Lose,M_Return;  //同上.
+    public GameObject M_Vic,M_Lose,M_Return;  //勝敗の表示.
     [SerializeField]
-    public GameObject M_Rating;         //ここで処理が都合がいい.
+    public GameObject M_Rating;               //レート表示.
+    [SerializeField]
+    public GameObject M_Leave;                //メッセージ表示.
+
     public Text M_Ratingtext;
     public AnimationClip DeadAnim;
 
@@ -42,6 +45,7 @@ public class PlayerState : MonoBehaviourPunCallbacks
     //pub sta.
     public static bool MultiWLCheck;
     public static int SetWepon, SetColor,SetSkill;
+
     //Local.
     int ResultCnt;
     int c_Wepon, c_Color, c_Skill;
@@ -80,10 +84,12 @@ public class PlayerState : MonoBehaviourPunCallbacks
             M_Return = M_ResultObject.transform.Find("h_Return").gameObject;
             M_Rating = M_ResultObject.transform.Find("m_Rating").gameObject;
             M_Ratingtext = M_ResultObject.transform.Find("m_Rating").gameObject.GetComponent<Text>();
+            M_Leave = M_ResultObject.transform.Find("m_Leave").gameObject;
             M_Vic.SetActive(false);
             M_Lose.SetActive(false);
             M_Return.SetActive(false);
             M_Rating.SetActive(false);
+            M_Leave.SetActive(false);
         }
 
         //すべての初期化が終わってからプレイヤー数のカウントを行う.
@@ -236,6 +242,8 @@ public class PlayerState : MonoBehaviourPunCallbacks
                 rate -= 5;
                 Record.Rating = rate.ToString();
                 ResultCnt++;
+                M_Ratingtext.text = 
+                    "Your Rating : " + rate.ToString() + "\n" + "RatingDown...";
             }
             else
             {
@@ -245,8 +253,16 @@ public class PlayerState : MonoBehaviourPunCallbacks
                 rate += 10;
                 Record.Rating = rate.ToString();
                 ResultCnt++;
+                M_Ratingtext.text = 
+                    "Your Rating : " + rate.ToString() + "\n" + "RatingUp!!";
             }
-            M_Ratingtext.text = "Your Rating : " + rate.ToString();
+
+            //退出・切断があったとき無条件で勝たせるため.
+            if (Matching.otherPlayerLeave == true)
+            {
+                M_Leave.SetActive(true);
+            }
+
             M_Return.SetActive(true);
             ResultProc.WritingData = true;
         }
@@ -317,9 +333,6 @@ public class PlayerState : MonoBehaviourPunCallbacks
             RArm.tag = "Attack";
         }
     }
-
-
-
 
     void OnCollisionEnter(Collision collision)
     {

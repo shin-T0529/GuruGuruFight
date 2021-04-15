@@ -15,9 +15,10 @@ public class FadeProc : MonoBehaviourPunCallbacks
 
     //pri.
     [SerializeField] public GameObject matchTextObj;    //ここで処理が都合がいい.
-    [SerializeField] public Text matchText;             //ここで処理が都合がいい.
+    [SerializeField] public Text matchText;
 
     //pub sta.
+    public static int TimingCheck;
     public static int FadeJumpScene;
     public static bool BattleStart;
     public static bool FadeControll;
@@ -26,6 +27,7 @@ public class FadeProc : MonoBehaviourPunCallbacks
     float alfa;                     //A値を操作するための変数.
     bool FadeOnOff;                 //ON(暗→明:true)OFF(明→暗:false).
     bool Fade;
+    bool TimingCynk;
     int MatchWaitCount;
     void Start()
     {
@@ -60,10 +62,37 @@ public class FadeProc : MonoBehaviourPunCallbacks
                 alfa -= FadeSpeed;
                 if(alfa < 0.0f)
                 {
-                    FadeCanvas.SetActive(false);
-                    FadeControll = false;
-                    Fade = false;
-                    FadeOnOff = false;
+                    int i = SceneManager.GetActiveScene().buildIndex;
+
+                    //マルチプレイかそれ以外か.
+                    if (i == 8)
+                    {
+                        //プレイヤーのタイミング同期が終わったらfalseにする.
+                        if (TimingCheck == 2)
+                        {
+                            FadeCanvas.SetActive(false);
+                            FadeControll = false;
+                            Fade = false;
+                            FadeOnOff = false;
+                        }
+                        else
+                        {
+                            if (TimingCynk == false)
+                            {
+                                //プレイヤーのフェード終了加算（２になったら開始）.
+                                photonView.RPC(nameof(StartTiming), RpcTarget.All);
+                                TimingCynk = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //それ以外.
+                        FadeCanvas.SetActive(false);
+                        FadeControll = false;
+                        Fade = false;
+                        FadeOnOff = false;
+                    }
                 }
             }
             //明→暗.
@@ -87,15 +116,13 @@ public class FadeProc : MonoBehaviourPunCallbacks
         if (1.1f < alfa)
         {
             alfa = 1.0f;
-            
+            if (i == 8)
+            {
+                ResetRooms();
+                PhotonNetwork.LeaveRoom();
+                PhotonNetwork.Disconnect();
+            }
             SceneManager.LoadScene(JumpScene);
-        }
-        if(i == 8)
-        {
-            //PhotonNetwork.LeaveRoom();
-            PhotonNetwork.Disconnect();
-            Debug.Log("切断してデータも送り申した");
-            photonView.RPC(nameof(ResetRooms), RpcTarget.All);
         }
     }
 
@@ -123,12 +150,17 @@ public class FadeProc : MonoBehaviourPunCallbacks
         }
     }
 
-    [PunRPC]
     void ResetRooms()
     {
         Matching.PlayerCount = 0;
         Matching.MatchEnd = false;
         PlayerState.MultiWLCheck = false;
+    }
+
+    [PunRPC]
+    void StartTiming()
+    {
+        TimingCheck++;
     }
 
 }

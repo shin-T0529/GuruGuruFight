@@ -32,12 +32,14 @@ public class ResultProc : MonoBehaviourPunCallbacks
     //Local.
     int PlayCount,WinCount;                         //ソロ記録用.
     bool ResultCntCheck;
+    bool nullFindCheck;
     CharaStateProc charaState;
     ReadData readData;
 
     void Start()
     {
         ResultCntCheck = false;
+        nullFindCheck = false;
         WritingData = false;
         PlayCount = int.Parse(Record.RecordPlay);
         WinCount = int.Parse(Record.RecordWin);
@@ -50,12 +52,13 @@ public class ResultProc : MonoBehaviourPunCallbacks
             GetObjectName = "Player(Clone)";
         }
 
-        if (PlayerObject == null)
+        if (PlayerObject == null && nullFindCheck == false)
         {
             PlayerObject = GameObject.Find(GetObjectName);
             charaState = PlayerObject.GetComponent<CharaStateProc>();   //スクリプトの取得.
             UIAnim = this.gameObject.GetComponent<Animation>();
             Debug.Log("ResultProc：取得しました！");
+            nullFindCheck = true;
         }
 
         //バトルモードに応じてリザルトを変更する.

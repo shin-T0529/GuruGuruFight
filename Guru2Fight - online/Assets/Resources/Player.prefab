@@ -1689,6 +1689,7 @@ MonoBehaviour:
   M_Lose: {fileID: 0}
   M_Return: {fileID: 0}
   M_Rating: {fileID: 0}
+  M_Leave: {fileID: 0}
   M_Ratingtext: {fileID: 0}
   DeadAnim: {fileID: 7400000, guid: 27aac32d15729b741bb490cdbfadd142, type: 2}
   Guru2Attack: 0

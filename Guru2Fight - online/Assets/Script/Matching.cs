@@ -13,15 +13,16 @@ public class Matching : MonoBehaviourPunCallbacks
 
     public static int CliantChack = 1;
     public static bool MasterCliant;
+    public static bool otherPlayerLeave;
+
+    public int testNo;
+    public string GameVersion;
 
     private GameObject CreateInstance;
-    public int testNo;
-
     [SerializeField]
     private InputField playerName;
 
     int SetRaderColorNo;
-
     Vector3 v = Vector3.zero;           //Position.
     Vector3 rr;
     Quaternion r;                       //Rotation.
@@ -33,6 +34,9 @@ public class Matching : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+
+        PhotonNetwork.GameVersion = GameVersion;
+
         //PhotnServerSettingsに設定した内容を使ってマスターサーバーへ接続をする.
         PhotonNetwork.ConnectUsingSettings();
 
@@ -45,6 +49,9 @@ public class Matching : MonoBehaviourPunCallbacks
 
         //モデル参照文字列用.
         CliantChack = 1;
+
+        //切断とかされたとき.
+        otherPlayerLeave = false;
 
         //マッチング処理の終了フラグ.
         MatchEnd = false;
@@ -122,5 +129,22 @@ public class Matching : MonoBehaviourPunCallbacks
         charaStateProc.OnlineHPBack.color = new Color(0f, 1f, 0f, 0f);
         CreateInstance.GetPhotonView().RPC("SetHP", RpcTarget.AllBuffered, charaStateProc.HitPoint.fillAmount);
 
+    }
+
+    // 部屋から退室した時
+    public override void OnLeftRoom()
+    {
+        Destroy(CreateInstance);
+    }
+
+    // 他のプレイヤーが退室した時
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        //勝敗が付いていない状態で退室されたとき.
+        if(MultiPlay.M_GameEnd == false)
+        {
+            MultiPlay.M_GameEnd = true;
+            otherPlayerLeave = true;
+        }
     }
 }

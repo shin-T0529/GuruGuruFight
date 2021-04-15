@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WeponState : MonoBehaviour
 {
@@ -23,22 +24,42 @@ public class WeponState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(ButtonProc.BattleType != 3)
-        {
-            if (ButtonProc.BattleType == 4)
-            {
-                charaCustom.SendColor = 0;
-            }
-            else
-            {
-                charaCustom.SendColor = CharaCustom.ColorNo;
-            }
-        }
-        else
-        {
-            charaCustom.SendColor = PlayerState.SetColor;
-        }
+        int i = SceneManager.GetActiveScene().buildIndex;
 
+        switch(i)
+        {
+            case 0:     //タイトル.
+                break;
+            case 1:     //ホーム.
+                charaCustom.SendColor = CharaCustom.ColorNo;
+                break;
+            case 2:     //ソロプレイ出撃前画面.
+                charaCustom.SendColor = CharaCustom.ColorNo;
+                break;
+            case 3:     //カスタマイズ.
+                charaCustom.SendColor = CharaCustom.ColorNo;
+                break;
+            case 4:     //ショップ.
+                charaCustom.SendColor = 0;
+                break;
+            case 5:     //スコアアタックモード.
+                charaCustom.SendColor = CharaCustom.ColorNo;
+                break;
+            case 6:     //タイムアタックモード.
+                charaCustom.SendColor = CharaCustom.ColorNo;
+                break;
+            case 7:     //チュートリアル.
+                charaCustom.SendColor = CharaCustom.ColorNo;
+                break;
+            case 8:     //ランダムマッチングバトルモード.
+                charaCustom.SendColor = PlayerState.SetColor;
+                break;
+
+            default:
+                break;
+        }
+        
+        //各シーンに応じた色の設定.
         charaCustom.ColorList(Wepon, charaCustom.SendColor);
     }
 }
