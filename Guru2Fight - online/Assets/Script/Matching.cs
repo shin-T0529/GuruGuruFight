@@ -34,7 +34,6 @@ public class Matching : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-
         PhotonNetwork.GameVersion = GameVersion;
 
         //PhotnServerSettingsに設定した内容を使ってマスターサーバーへ接続をする.
@@ -72,6 +71,7 @@ public class Matching : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(null, roomOptions);
     }
 
+    //部屋に入った時.
     public override void OnJoinedRoom()
     {
         getUserName = this.GetComponent<GetUserName>();
@@ -99,7 +99,7 @@ public class Matching : MonoBehaviourPunCallbacks
         else
         {
             MasterCliant = false;
-            v = new Vector3(2f, 1.02f, 9.5f);
+            v = new Vector3(2f, 1.02f, 8f);
             rr = new Vector3(0f, 180f, 0f);
             SetRaderColorNo = 2;
         }
@@ -131,13 +131,14 @@ public class Matching : MonoBehaviourPunCallbacks
 
     }
 
-    // 部屋から退室した時
+    // 部屋から退室した時.
     public override void OnLeftRoom()
     {
+        PhotonNetwork.OfflineMode = false;
         Destroy(CreateInstance);
     }
 
-    // 他のプレイヤーが退室した時
+    // 他のプレイヤーが退室した時.
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         //勝敗が付いていない状態で退室されたとき.

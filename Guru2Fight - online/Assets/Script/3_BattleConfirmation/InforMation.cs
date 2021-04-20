@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class InforMation : MonoBehaviour
 {
     //pub.
-    public Text WeponName, ColorName, SkillName;
+    public Text WeponName, ColorName, SkillName,ModeName;
 
     //pri.
 
@@ -20,10 +20,10 @@ public class InforMation : MonoBehaviour
 
     void Update()
     {
-        SetCustomData(CharaCustom.WeponNo, CharaCustom.ColorNo, CharaCustom.SkillNo);
+        SetCustomData(CharaCustom.WeponNo, CharaCustom.ColorNo, CharaCustom.SkillNo,ButtonProc.BattleType);
     }
 
-    void SetCustomData(int WNo,int CNo,int SNo)
+    void SetCustomData(int WNo,int CNo,int SNo,int BNo)
     {
         switch(WNo)
         {
@@ -88,5 +88,22 @@ public class InforMation : MonoBehaviour
                 break;
         }
 
+        switch (BNo)
+        {
+            case 0:
+                ModeName.text = "NEXT → 移動先未設定【エラー】";
+                break;
+            case 1:
+                ModeName.text = "NEXT → スコアアタックモード";
+                break;
+            case 2:
+                ModeName.text = "NEXT → タイムアタックモード";
+                break;
+            case 3:
+                ModeName.text = "NEXT → オンラインバトルモード";
+                break;
+            default:
+                break;
+        }
     }
 }

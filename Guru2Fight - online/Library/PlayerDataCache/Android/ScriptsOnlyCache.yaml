@@ -27,7 +27,6 @@ ScriptsOnlyBuild:
     - NameInput
     - PlayerState
     - PlayerUI
-    - RPCProc
     - ReadData
     - Record
     - Reset
@@ -450,7 +449,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13578}
     - Class: 114
-      Script: {instanceID: 22762}
+      Script: {instanceID: 19034}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -684,7 +683,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13578}
     - Class: 114
-      Script: {instanceID: 24292}
+      Script: {instanceID: 20580}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1170,13 +1169,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11588}
     - Class: 114
-      Script: {instanceID: 11668}
-    - Class: 114
       Script: {instanceID: 11674}
     - Class: 114
       Script: {instanceID: 11786}
-    - Class: 114
-      Script: {instanceID: 11808}
     - Class: 114
       Script: {instanceID: 11870}
     - Class: 114
@@ -1195,8 +1190,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12332}
     - Class: 114
       Script: {instanceID: 12394}
-    - Class: 114
-      Script: {instanceID: 12500}
     - Class: 114
       Script: {instanceID: 12522}
     - Class: 114
@@ -1234,9 +1227,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13578}
     - Class: 114
-      Script: {instanceID: 13638}
-    - Class: 114
-      Script: {instanceID: 16492}
+      Script: {instanceID: 15002}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1246,8 +1237,6 @@ ScriptsOnlyBuild:
     - Class: 136
       Script: {instanceID: 0}
     - Class: 157
-      Script: {instanceID: 0}
-    - Class: 195
       Script: {instanceID: 0}
     - Class: 196
       Script: {instanceID: 0}
@@ -2146,7 +2135,7 @@ ScriptsOnlyBuild:
     className: CurrentRoomEmptyRoomTtlProperty
   - hash:
       serializedVersion: 2
-      Hash: 145fe03467929de1f9e91e7d1c4a0507
+      Hash: 1ba6bb0f1e645742929e064bac61506c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: InforMation
@@ -2554,7 +2543,7 @@ ScriptsOnlyBuild:
     className: JoystickPlayerExample
   - hash:
       serializedVersion: 2
-      Hash: d8146694e0805a5c48541ed5230866bc
+      Hash: d51a8f95e0902075b71b94e15579387d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerState
@@ -2965,4 +2954,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/7_Time_Fight.unity
   - Assets/Scenes/8_TutorialFight.unity
   - Assets/Scenes/9_Onlinebattle.unity
-  playerPath: D:/Android/SDK/BuildAppData/Guru2Fight!!/beta/OnlineTest/GF-Onlinebeta-1.1.3-1.0.9-ReBattleChack.apk
+  playerPath: D:/Android/SDK/BuildAppData/Guru2Fight!!/beta/Guru2Fight!!-1.1.4.apk

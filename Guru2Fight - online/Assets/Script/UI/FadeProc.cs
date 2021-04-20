@@ -14,11 +14,14 @@ public class FadeProc : MonoBehaviourPunCallbacks
     public float FadeSpeed = 0.08f;                     //フェードのデフォルト速度、インスペクターから変更可.
 
     //pri.
-    [SerializeField] public GameObject matchTextObj;    //ここで処理が都合がいい.
+    [SerializeField] public GameObject matchTextObj;
     [SerializeField] public Text matchText;
 
     //pub sta.
     public static int TimingCheck;
+    public static int StartTimingCheck;
+    public static int GameStartCnt;
+
     public static int FadeJumpScene;
     public static bool BattleStart;
     public static bool FadeControll;
@@ -38,9 +41,10 @@ public class FadeProc : MonoBehaviourPunCallbacks
         alfa = 1.0f;
         FadeImage.color = FadeImage.GetComponent<Image>().color;
         FadeJumpScene = SceneManager.GetActiveScene().buildIndex;
-
-        if(FadeJumpScene == 8)
+        StartTimingCheck = 0;
+        if (FadeJumpScene == 8)
         {
+            photonView.RPC(nameof(ResetTiming), RpcTarget.AllBuffered);
             Matching.MatchEnd = false;
             matchTextObj.SetActive(true);
         }
@@ -70,17 +74,24 @@ public class FadeProc : MonoBehaviourPunCallbacks
                         //プレイヤーのタイミング同期が終わったらfalseにする.
                         if (TimingCheck == 2)
                         {
-                            FadeCanvas.SetActive(false);
-                            FadeControll = false;
-                            Fade = false;
-                            FadeOnOff = false;
+                            if(100 < StartTimingCheck)
+                            {
+                                photonView.RPC(nameof(gameStartTiming), RpcTarget.AllBuffered);
+                                if(1 < GameStartCnt)
+                                {
+                                    FadeCanvas.SetActive(false);
+                                    FadeControll = false;
+                                    Fade = false;
+                                    FadeOnOff = false;
+                                }
+                            }
                         }
                         else
                         {
                             if (TimingCynk == false)
                             {
                                 //プレイヤーのフェード終了加算（２になったら開始）.
-                                photonView.RPC(nameof(StartTiming), RpcTarget.All);
+                                photonView.RPC(nameof(StartTiming), RpcTarget.AllBuffered);
                                 TimingCynk = true;
                             }
                         }
@@ -128,25 +139,39 @@ public class FadeProc : MonoBehaviourPunCallbacks
 
     void MatchingText()
     {
-        if (Matching.MatchEnd == false)
+        if(TimingCheck < 2)
         {
-            MatchWaitCount++;
-            if (MatchWaitCount < 30)
+            if (Matching.MatchEnd == false)
             {
-                matchText.text = "マッチングちゅう...";
+                MatchWaitCount++;
+                if (MatchWaitCount < 30)
+                {
+                    matchText.text = "マッチングちゅう...";
+                }
+                else if (31 < MatchWaitCount && MatchWaitCount < 60)
+                {
+                    matchText.text = "マッチングちゅう....";
+                }
+                else if (61 < MatchWaitCount && MatchWaitCount < 120)
+                {
+                    matchText.text = "マッチングちゅう.....";
+                }
+                else if (121 < MatchWaitCount)
+                {
+                    MatchWaitCount = 0;
+                }
             }
-            else if (31 < MatchWaitCount && MatchWaitCount < 60)
+
+            if (0 < TimingCheck)
             {
-                matchText.text = "マッチングちゅう....";
+                matchText.text = "同期中....";
             }
-            else if (61 < MatchWaitCount && MatchWaitCount < 120)
-            {
-                matchText.text = "マッチングちゅう.....";
-            }
-            else if (121 < MatchWaitCount)
-            {
-                MatchWaitCount = 0;
-            }
+        }
+        else
+        {
+            matchText.GetComponent<RectTransform>().anchoredPosition = new Vector2(1.5266f,4f);
+            matchText.text = "Battle Start！";
+            photonView.RPC(nameof(testGameStart), RpcTarget.AllBuffered);
         }
     }
 
@@ -158,9 +183,27 @@ public class FadeProc : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
+    void gameStartTiming()
+    {
+        GameStartCnt++;
+    }
+
+    [PunRPC]
     void StartTiming()
     {
         TimingCheck++;
     }
 
+    [PunRPC]
+    void ResetTiming()
+    {
+        TimingCheck = 0;
+        StartTimingCheck = 0;
+    }
+
+    [PunRPC]
+    void testGameStart()
+    {
+        StartTimingCheck++;
+    }
 }

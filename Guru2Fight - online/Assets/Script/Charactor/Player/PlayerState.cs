@@ -21,14 +21,6 @@ public class PlayerState : MonoBehaviourPunCallbacks
 
     public GameObject Empty;                  //空のオブジェクト.
 
-    [SerializeField]
-    public GameObject M_ResultObject;         //ここで処理が都合がいい.
-    [SerializeField]
-    public GameObject M_Vic,M_Lose,M_Return;  //勝敗の表示.
-    [SerializeField]
-    public GameObject M_Rating;               //レート表示.
-    [SerializeField]
-    public GameObject M_Leave;                //メッセージ表示.
 
     public Text M_Ratingtext;
     public AnimationClip DeadAnim;
@@ -38,6 +30,15 @@ public class PlayerState : MonoBehaviourPunCallbacks
     public bool UseSkill;
 
     //pri.
+    [SerializeField]
+    private GameObject M_ResultObject;         //ここで処理が都合がいい.
+    [SerializeField]
+    private GameObject M_Vic, M_Lose, M_Return;  //勝敗の表示.
+    [SerializeField]
+    private GameObject M_Rating;               //レート表示.
+    [SerializeField]
+    private GameObject M_Leave;                //メッセージ表示.
+
     private GameObject LArm, RArm;          //表示されている腕を取得.
     private Animation PlayerAnim;
     [SerializeField] private GameObject ShotPos;

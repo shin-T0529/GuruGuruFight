@@ -35,12 +35,12 @@ public class CameraSetPos : MonoBehaviour
             {
                 if (Matching.MasterCliant == true)
                 {
-                    Camera.main.transform.position = new Vector3(2f, 8.702f, -30f);
+                    Camera.main.transform.position = new Vector3(2f, 11f, -30f);
                     Camera.main.transform.rotation = Quaternion.Euler(34.684f, 0f, 0f);
                 }
                 else
                 {
-                    Camera.main.transform.position = new Vector3(2f, 8.702f, 27.5f);
+                    Camera.main.transform.position = new Vector3(2f, 11f, 27.5f);
                     Camera.main.transform.rotation = Quaternion.Euler(34.684f, 180f, 0f);
                 }
             }
@@ -62,17 +62,3 @@ public class CameraSetPos : MonoBehaviour
 
     }
 }
-
-/*
-             if (Matching.MasterCliant == true)
-            {
-                Camera.main.transform.position = new Vector3(2f, 8.702f, -30f);
-                Camera.main.transform.rotation = Quaternion.Euler(34.684f, 0f, 0f);
-            }
-            else
-            {
-                Camera.main.transform.position = new Vector3(2f, 8.702f, 27.5f);
-                Camera.main.transform.rotation = Quaternion.Euler(34.684f, 180f, 0f);
-            }
-
-     */

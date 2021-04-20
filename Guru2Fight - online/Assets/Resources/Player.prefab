@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599292785657058821}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.803, y: -0.6, z: -0.26200047}
+  m_LocalPosition: {x: 0.02, y: -0.6, z: -0.26200047}
   m_LocalScale: {x: 3, y: 8.611156, z: 3.0000014}
   m_Children: []
   m_Father: {fileID: 4063603252876376807}
@@ -285,7 +285,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4224757702058816176}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -506,7 +506,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4940161326455579513}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.967, y: 0.312, z: 0.867}
+  m_LocalPosition: {x: 0.813, y: 0.312, z: 0.867}
   m_LocalScale: {x: 0.07692308, y: 0.08090541, z: 0.07692307}
   m_Children:
   - {fileID: 4809212110307997454}
@@ -528,7 +528,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4940161326455579513}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1684,17 +1684,17 @@ MonoBehaviour:
   GuruZ_L: {fileID: 4940161326455579513}
   GuruZ_R: {fileID: 4224757702058816176}
   Empty: {fileID: 0}
+  M_Ratingtext: {fileID: 0}
+  DeadAnim: {fileID: 7400000, guid: 27aac32d15729b741bb490cdbfadd142, type: 2}
+  Guru2Attack: 0
+  Guru2Skill: 0
+  UseSkill: 0
   M_ResultObject: {fileID: 0}
   M_Vic: {fileID: 0}
   M_Lose: {fileID: 0}
   M_Return: {fileID: 0}
   M_Rating: {fileID: 0}
   M_Leave: {fileID: 0}
-  M_Ratingtext: {fileID: 0}
-  DeadAnim: {fileID: 7400000, guid: 27aac32d15729b741bb490cdbfadd142, type: 2}
-  Guru2Attack: 0
-  Guru2Skill: 0
-  UseSkill: 0
   ShotPos: {fileID: 3919673758836341453}
 --- !u!111 &5109091179362648194
 Animation:
@@ -2888,7 +2888,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7323216065217471358}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3118517976215269371}
@@ -2906,7 +2906,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7323216065217471358}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &1965649031422233314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2919,7 +2919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: b979e69e04c0e8a4081fc0158fe27eee, type: 2}
   m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
@@ -2967,7 +2967,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7831434641437109964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0409001, y: -0.64259124, z: -0.65844387}
+  m_LocalPosition: {x: 0.04, y: -0.64259124, z: -0.65844387}
   m_LocalScale: {x: 3, y: 9.027413, z: 3.0000014}
   m_Children: []
   m_Father: {fileID: 4363472321354354823}
@@ -3109,7 +3109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4082928184658161371
 Transform:
   m_ObjectHideFlags: 0
@@ -3201,7 +3201,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8550993409927395588}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!114 &8549164393925760608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3214,7 +3214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: b979e69e04c0e8a4081fc0158fe27eee, type: 2}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
