@@ -76,7 +76,9 @@
      <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
      <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
      <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
+     <Compile Include="Assets\Script\1_Title\ButtonFade.cs" />
      <Compile Include="Assets\Script\1_Title\TitleSetting.cs" />
+     <Compile Include="Assets\Script\2_Home\Battery.cs" />
      <Compile Include="Assets\Script\2_Home\Record.cs" />
      <Compile Include="Assets\Script\2_Home\TIme.cs" />
      <Compile Include="Assets\Script\3_BattleConfirmation\InforMation.cs" />

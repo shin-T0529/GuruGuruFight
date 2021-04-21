@@ -42,7 +42,7 @@ public class T_Controll : MonoBehaviour
     void Start()
     {
         testst = T_TextArea.transform.position;
-        WindowSize.text = testst.x.ToString();
+        //WindowSize.text = testst.x.ToString();
 
         TutorialCheck = false;
         // チュートリアル表示用UIのインスタンス取得
@@ -82,7 +82,7 @@ public class T_Controll : MonoBehaviour
     void Update()
     {
         testst = T_TextArea.transform.position;
-        WindowSize.text = testst.x.ToString();
+        //WindowSize.text = testst.x.ToString();
 
         // チュートリアルが存在し実行されていない場合に処理
         if (currentTask != null && !task_executed)
