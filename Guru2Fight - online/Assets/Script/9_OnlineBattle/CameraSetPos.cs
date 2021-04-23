@@ -49,7 +49,7 @@ public class CameraSetPos : MonoBehaviour
                 cam.transform.position = new Vector3(
                      TargetObject.transform.position.x,
                      cam.transform.position.y,
-                     TargetObject.transform.position.z - 18f);
+                     cam.transform.position.z);
 
                 Quaternion quaternion = TargetObject.transform.rotation;
                 float y = quaternion.eulerAngles.y;

@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1012049383
+CRC: 161260091
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -58,4 +58,7 @@ AssetBundleManifest:
       Dependencies: {}
     Info_18:
       Name: sefilename
+      Dependencies: {}
+    Info_19:
+      Name: 9_onlinebattlebgm
       Dependencies: {}

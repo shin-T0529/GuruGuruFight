@@ -50,15 +50,18 @@ public class EnemyState : MonoBehaviour
         //seMusic.SEPlay(ref charaState.Dead, 1);
 
         //ヒットストップ.
-        //if(agent.isStopped == true)
-        //{
-        //    StopCheckCnt++;
-        //    if (50 < StopCheckCnt)
-        //    {
-        //        agent.isStopped = false;
-        //        StopCheckCnt = 0;
-        //    }
-        //}
+        if(agent != null)   //エラー防止.
+        {
+            if (agent.isStopped == true)
+            {
+                StopCheckCnt++;
+                if (50 < StopCheckCnt)
+                {
+                    agent.isStopped = false;
+                    StopCheckCnt = 0;
+                }
+            }
+        }
     }
 
     void Dead()
@@ -107,8 +110,11 @@ public class EnemyState : MonoBehaviour
             charaState.AtkHit = true;
             charaState.AtkHitSE = true;
             charaState.MaxDamage = 1.0f;
-            //追跡を止める
-            agent.isStopped = true;
+            //追跡を止める(ヒットストップ).
+            if (agent != null)   //エラー防止.
+            {
+                agent.isStopped = true;
+            }
         }
     }
 }
