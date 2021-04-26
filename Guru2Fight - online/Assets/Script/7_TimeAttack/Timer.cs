@@ -13,10 +13,10 @@ public class Timer : MonoBehaviour
     //pub sta.
     public static bool T_GameEnd;
     public static bool KillCnt;
-    
+    public static int EnemyCount;
+
     //Local.
     int TimeCounter,TimeM,TimeS;
-    int EnemyCount;
 
     void Start()
     {

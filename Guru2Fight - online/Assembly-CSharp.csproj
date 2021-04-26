@@ -129,6 +129,7 @@
      <Compile Include="Assets\Script\UI\FadeProc.cs" />
      <Compile Include="Assets\Script\UI\GetUserName.cs" />
      <Compile Include="Assets\Script\UI\NameInput.cs" />
+     <Compile Include="Assets\Script\UI\TapEffect.cs" />
      <Compile Include="Assets\Script\UI\UISetting.cs" />
      <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.xml" />
      <None Include="Assets\Photon\PhotonUnityNetworking\changelog.txt" />

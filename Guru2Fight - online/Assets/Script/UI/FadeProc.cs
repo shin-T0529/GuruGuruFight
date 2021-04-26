@@ -44,7 +44,6 @@ public class FadeProc : MonoBehaviourPunCallbacks
         StartTimingCheck = 0;
         if (FadeJumpScene == 8)
         {
-            photonView.RPC(nameof(ResetTiming), RpcTarget.AllBuffered);
             Matching.MatchEnd = false;
             matchTextObj.SetActive(true);
         }
@@ -83,6 +82,7 @@ public class FadeProc : MonoBehaviourPunCallbacks
                                     FadeControll = false;
                                     Fade = false;
                                     FadeOnOff = false;
+                                    photonView.RPC(nameof(ResetTiming), RpcTarget.AllBuffered);
                                 }
                             }
                         }

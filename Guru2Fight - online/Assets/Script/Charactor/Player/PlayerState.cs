@@ -231,13 +231,12 @@ public class PlayerState : MonoBehaviourPunCallbacks
     {
         if (MultiWLCheck == true && ResultCnt == 0)
         {
-
             photonView.RPC(nameof(SetResultCheck), RpcTarget.All);
             int rate = int.Parse(Record.Rating);
             M_Rating.SetActive(true);
             if (charaState.Dead == true)
             {
-                //勝利敗北テキスト出す.
+                //敗北テキスト出す.
                 Debug.Log("貴方の負けです。");
                 M_Lose.SetActive(true);
                 rate -= 5;

@@ -22,7 +22,6 @@ public class ResultProc : MonoBehaviourPunCallbacks
     public string GetObjectName;
     public AnimationClip WindowAnim_W;
     public AnimationClip WindowAnim_L;
-    public int EnemyDefeat;
 
     //pri.
     private Animation UIAnim;
@@ -123,7 +122,7 @@ public class ResultProc : MonoBehaviourPunCallbacks
     {
         readData = GetComponent<ReadData>();
 
-        if (5 <= EnemyDefeat && End == false)
+        if (Timer.EnemyCount <= 0 && End == false)
         {//クリア時(決められた数を倒せたとき).
             Controll_C.SetActive(false);
             CameraCont_C.SetActive(false);
